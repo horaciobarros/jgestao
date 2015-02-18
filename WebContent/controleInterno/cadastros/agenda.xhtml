@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition template="/templates/principal.xhtml">
+	<ui:define name="corpo">
+
+		<div id="conteudo">
+
+			<h1 id="page-header">Agenda</h1>
+
+			<h:form>
+
+				<p:messages id="mensagens" showDetail="true" />
+
+				<p:schedule widgetVar="meucalendario" locale="pt"
+					value="#{agendaBean.eventModel}">
+
+					<!-- eventos -->
+					<p:ajax event="dateSelect" listener="#{agendaBean.quandoNovo}"
+						update="eventDetails" oncomplete="caixaDialogo.show()" />
+					<p:ajax event="eventSelect"
+						listener="#{agendaBean.quandoSelecionado}" update="eventDetails"
+						oncomplete="caixaDialogo.show()" />
+					<p:ajax event="eventMove" listener="#{agendaBean.quandoMovido}"
+						update="mensagens" oncomplete="meucalendario.update()" />
+					<p:ajax event="eventResize"
+						listener="#{agendaBean.quandoRedimensionado}" update="mensagens"
+						oncomplete="meucalendario.update()" />
+
+				</p:schedule>
+
+				<p:dialog widgetVar="caixaDialogo" header="Evento" width="700"
+					resizable="false" modal="true" showEffect="clip" hideEffect="clip">
+
+					<p:outputPanel id="eventDetails">
+
+						<h:panelGrid columns="2">
+
+							<h:outputLabel for="tipo" value="Tipo:" />
+							<h:selectOneMenu id="tipo" value="#{agendaBean.tipoAgenda}">
+								<f:selectItems value="#{agendaBean.tiposAgenda}" />
+							</h:selectOneMenu>
+
+							<h:outputLabel for="descricao" value="Descrição:" />
+							<p:inputText id="descricao" maxlength="100" style="width:500px;"
+								required="true" value="#{agendaBean.agenda.descricao}" />
+
+							<h:outputLabel for="inicio" value="Início:" />
+							<p:calendar id="inicio" required="true"
+								value="#{agendaBean.agenda.dataInicio}"
+								pattern="dd/MM/yyyy HH:mm" />
+
+							<h:outputLabel for="fim" value="Fim:" />
+							<p:calendar id="fim" required="true"
+								value="#{agendaBean.agenda.dataFim}" pattern="dd/MM/yyyy HH:mm" />
+
+							<h:outputLabel for="diaTodo" value="Dia todo?:" />
+							<h:selectBooleanCheckbox id="diaTodo"
+								value="#{agendaBean.agenda.diaTodo}" />
+
+							<h:outputLabel for="responsavel" value="Responsável:" />
+							<p:inputText id="responsavel" maxlength="100"
+								style="width:500px;" value="#{agendaBean.agenda.responsavel}" />
+
+							<h:outputLabel for="email" value="Email:" />
+							<p:inputText id="email" maxlength="100" style="width:500px;"
+								value="#{agendaBean.agenda.email}" />
+
+							<h:outputLabel for="departamento" value="Local: *" />
+							<p:selectOneMenu id="departamento"
+								value="#{agendaBean.agenda.departamento}"
+								converter="#{departamentoConverter}">
+								<f:selectItem itemLabel="" itemValue="" />
+								<f:selectItems value="#{agendaBean.listaDepartamento}" var="d"
+									itemValue="#{d}" itemLabel="#{d.descricao}" />
+							</p:selectOneMenu>
+
+
+
+						</h:panelGrid>
+
+						<p:separator />
+
+						<p:commandButton value="Salvar"
+							actionListener="#{agendaBean.salvar()}"
+							oncomplete="meucalendario.update();caixaDialogo.hide();"
+							update="mensagens" />
+						<p:commandButton value="Excluir"
+							actionListener="#{agendaBean.excluir()}"
+							oncomplete="meucalendario.update();caixaDialogo.hide();"
+							update="mensagens" />
+
+					</p:outputPanel>
+
+				</p:dialog>
+
+			</h:form>
+
+		</div>
+		<!-- end fluid-container -->
+
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+
+
+	<ui:composition>
+			<h:form id="form">
+				<center>
+
+					<p:dataTable id="unidades" var="u"
+						value="#{unidadeBean.lista}" style="width : 80%;" emptyMessage="Nenhum registro encontrado">
+						<f:facet name="header">
+							<p:outputLabel value="Unidades " />
+						</f:facet>
+
+						<p:column headerText="Código">
+							<h:outputText value="#{u.codigo}" />
+						</p:column>
+
+						<p:column headerText="Descrição">
+							<h:outputText value="#{u.descricao}" />
+						</p:column>
+
+						
+						<p:column headerText="Órgão">
+							<h:outputText value="#{u.orgao.descricao}" />
+						</p:column>
+
+						<p:column style="width:4%">
+							<p:commandLink id="selectButton"
+								icon="/resources/imagens/editar16.png"
+								action="#{unidadeBean.editar}" ajax="true">
+								<p:graphicImage value="/resources/imagens/editar16.png" />
+								<f:setPropertyActionListener value="#{u}"
+									target="#{unidadeBean.unidade}" />
+							</p:commandLink>
+						</p:column>
+						<f:facet name="footer">
+							<div align="right">
+								<p:panelGrid columns="2" style="text-align: right; width:20%;">
+									<p:outputLabel value="Registros listados:" />
+									<p:outputLabel value="#{unidadeBean.lista.size()}" />
+								</p:panelGrid>
+							</div>
+						</f:facet>
+
+					</p:dataTable>
+				</center>
+
+			</h:form>
+
+
+	</ui:composition>
+</h:body>
+</html>

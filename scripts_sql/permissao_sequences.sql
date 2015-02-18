@@ -1,0 +1,14 @@
+GRANT SELECT,UPDATE ON departamento_id_seq to horaciob;
+GRANT SELECT,UPDATE ON auditoria_id_seq to horaciob;
+GRANT SELECT,UPDATE ON codigo_irregularidade_id_seq to horaciob;
+GRANT SELECT,UPDATE ON empresa_id_seq to horaciob;
+GRANT SELECT,UPDATE ON entidade_id_seq to horaciob;
+GRANT SELECT,UPDATE ON imagem_id_seq to horaciob;
+GRANT SELECT,UPDATE ON irregularidades_id_seq to horaciob;
+GRANT SELECT,UPDATE ON legislacao_id_seq to horaciob;
+GRANT SELECT,UPDATE ON normas_procedimentos_id_seq to horaciob;
+GRANT SELECT,UPDATE ON tipo_legislacao_id_seq to horaciob;
+GRANT SELECT,UPDATE ON tipo_sistema_id_seq to horaciob;
+GRANT SELECT,UPDATE ON unidade_orcamentaria_id_seq to horaciob;
+GRANT SELECT,UPDATE ON unidade_id_seq to horaciob;
+GRANT SELECT,UPDATE ON orgao_id_seq to horaciob;

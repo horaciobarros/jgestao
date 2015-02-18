@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+
+
+	<ui:composition template="/templates/principal.xhtml">
+		<ui:define name="corpo">
+			<h:form id="formLegislacao">
+				<center>
+
+					<p:messages id="messages" showDetail="true" closable="true" />
+					<h:inputHidden value="#{legislacaoBean.legislacao.id}" />
+
+					<p:panelGrid id="pesquisarLegislacao" columns="2"
+						style="width:50%; height:100%; margin-top:50px;">
+						<f:facet name="header" style="align-text:left;">
+							<p:outputLabel value="Consultar Legislação" />
+						</f:facet>
+
+						<h:outputLabel for="tipoLegislacao" value="Tipo: " />
+						<p:selectOneMenu id="tipoLegislacao"
+							value="#{legislacaoBean.tipoLegislacao}" label="tipo"
+							converter="#{tipoLegislacaoConverter}">
+							<f:selectItem itemLabel="" itemValue="" />
+							<f:selectItems value="#{legislacaoBean.listaTipoLegislacao}"
+								var="t" itemValue="#{t}" itemLabel="#{t.descricao}" />
+						</p:selectOneMenu>
+
+						<h:outputLabel for="periodoInicialDate" value="Período inicial: " />
+						<p:calendar id="periodoInicialDate"
+							value="#{legislacaoBean.periodoInicial}" label="periodoInicial"
+							size="10" pattern="dd/MM/yyyy">
+							<f:convertDateTime pattern="dd/MM/yyyy" />
+						</p:calendar>
+
+						<h:outputLabel for="periodoFinalDate" value="Período final: " />
+						<p:calendar id="periodoFinalDate"
+							value="#{legislacaoBean.periodoFinal}" label="periodoFinal"
+							size="10" pattern="dd/MM/yyyy">
+							<f:convertDateTime pattern="dd/MM/yyyy" />
+						</p:calendar>
+
+						<h:outputLabel for="conteudo" value="Que contenha: " />
+						<p:inputText id="conteudo" value="#{legislacaoBean.conteudo}"
+							label="conteudo" maxlength="50" size="50" />
+
+
+					</p:panelGrid>
+					<p:commandButton id="pesquisar" icon="ui-icon-circle-zoomout"
+						value="Pesquisar" action="#{legislacaoBean.pesquisar}"
+						update="formLegislacao,messages">
+					</p:commandButton>
+					<p:commandButton id="incluir" icon="ui-icon-circle-plus"
+						value="Incluir" action="#{legislacaoBean.incluir}">
+					</p:commandButton>
+
+
+					<p:dataTable id="tabela" var="l" value="#{legislacaoBean.lista}"
+						rendered="#{legislacaoBean.lista ne null}"
+						style="width:80%; height:100%; margin-top:50px;"
+						emptyMessage="Nenhum registro encontrado">
+						<f:facet name="header">
+							<p:outputLabel value="Legislações Cadastradas" />
+						</f:facet>
+
+						<p:column headerText="Código">
+							<h:outputText value="#{l.id}" />
+						</p:column>
+
+
+						<p:column headerText="Tipo">
+							<h:outputText value="#{l.tipoLegislacao.codigo}" />
+						</p:column>
+
+						<p:column headerText="Número">
+							<h:outputText value="#{l.numero}" />
+						</p:column>
+
+						<p:column headerText="Data">
+							<h:outputText value="#{l.data}">
+								<f:convertDateTime pattern="dd/MM/yyyy" />
+							</h:outputText>
+						</p:column>
+						<p:column headerText="Referência">
+							<h:outputText value="#{l.referencia}" />
+						</p:column>
+
+
+						<p:column style="width:4%">
+							<p:commandLink id="selectButton"
+								icon="/resources/imagens/editar16.png"
+								action="#{legislacaoBean.editar}" ajax="true">
+								<p:graphicImage value="/resources/imagens/editar16.png" />
+								<f:setPropertyActionListener value="#{l}"
+									target="#{legislacaoBean.legislacao}" />
+							</p:commandLink>
+						</p:column>
+
+						<f:facet name="footer">
+							<div align="right">
+								<p:panelGrid columns="2" style="text-align: right; width:20%;">
+									<p:outputLabel value="Registros listados:" />
+									<p:outputLabel value="#{legislacaoBean.lista.size()}" />
+								</p:panelGrid>
+							</div>
+
+						</f:facet>
+
+					</p:dataTable>
+				</center>
+
+			</h:form>
+
+
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

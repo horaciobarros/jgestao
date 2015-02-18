@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<body>
+
+	<ui:composition template="/templates/principal.xhtml">
+		<ui:define name="corpo">
+			<h:form id="formOrgao">
+
+				<center>
+					<p:messages id="messages" showDetail="true" autoUpdate="true"
+						closable="true" />
+						<p:commandButton id="incluir" icon="ui-icon-circle-plus"
+						value="Incluir" action="#{codigoIrregularidadeBean.incluir}">
+					</p:commandButton>
+
+				</center>
+			
+				<center>
+
+					<p:dataTable id="codigoIrregularidade" var="o" value="#{codigoIrregularidadeBean.lista}"
+						style="width : 80%;">
+						<f:facet name="header">
+							<p:outputLabel value="Cadastro de Tipo de Irregularidade" />
+						</f:facet>
+
+						<p:column headerText="Código">
+							<h:outputText value="#{o.codigo}" />
+						</p:column>
+
+						<p:column headerText="Descrição">
+							<h:outputText value="#{o.descricao}" />
+						</p:column>
+
+
+
+						<p:column style="width:4%">
+							<h:commandLink id="selectButton"
+								icon="/resources/imagens/editar16.png" ajax="false"
+								action="#{codigoIrregularidadeBean.editar}">
+								<p:graphicImage value="/resources/imagens/editar16.png" />
+								<f:setPropertyActionListener value="#{o}"
+									target="#{codigoIrregularidadeBean.codigoIrregularidade}" />
+							</h:commandLink>
+						</p:column>
+						<f:facet name="footer">
+							<div align="right">
+								<p:panelGrid columns="2" style="text-align: right; width:20%;">
+									<p:outputLabel value="listados:" />
+									<p:outputLabel value="#{codigoIrregularidadeBean.lista.size()}" />
+								</p:panelGrid>
+							</div>
+						</f:facet>
+
+					</p:dataTable>
+
+				</center>
+
+			</h:form>
+
+
+		</ui:define>
+	</ui:composition>
+</body>
+</html>

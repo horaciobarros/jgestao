@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/templates/principal.xhtml">
+	<ui:define name="corpo">
+		<h:form enctype="multipart/form-data" id="formImagens">
+
+			<center>
+				<p:messages id="messages" showDetail="true" autoUpdate="true"
+					closable="true" />
+
+				<p:panel style="width : 80%;">
+					<f:facet name="header">
+						<p:outputLabel value="Anexando arquivos" />
+					</f:facet>
+					<h:inputText  id="tabela" value="#{arquivoBean.tabela}" readonly="true" />
+					<h:inputText  id="idReferencia" value="#{arquivoBean.idReferencia}" readonly="true" />
+
+					<p:outputPanel id="panel">
+						<p:fileUpload
+							fileUploadListener="#{arquivoBean.handleFileUploadArquivo}"
+							mode="advanced" update="panel" auto="true" sizeLimit="200000000"
+							allowTypes="/(\.|\/)(gif|jpe?g|png|pdf|docxl|rtf|doc)$/"
+							label="Procurar..." />
+
+						<p:panelGrid columns="2" style="width : 80%;">
+
+							<p:outputLabel for="descricao" value="Descrição:" />
+							<p:inputText id="descricao"
+								value="#{arquivoBean.arquivo.descricao}" size="50"
+								readonly="true" />
+							<p:outputLabel for="tipoArquivo" value="Tipo:" />
+							<p:inputText id="tipoArquivo"
+								value="#{arquivoBean.arquivo.tipoArquivo}" size="30"
+								readonly="true" />
+
+							<f:facet name="footer">
+
+								<p:commandButton id="selectButton" icon="ui-icon-disk"
+									value="Confirmar" action="#{arquivoBean.gravar}" ajax="false">
+								</p:commandButton>
+								<p:commandButton id="selectButtonVoltar"
+									icon="ui-icon-circle-arrow-w" value="Voltar"
+									action="#{arquivoBean.voltar}" ajax="false">
+								</p:commandButton>
+
+							</f:facet>
+
+						</p:panelGrid>
+
+					</p:outputPanel>
+
+
+
+				</p:panel>
+			</center>
+		</h:form>
+
+
+	</ui:define>
+</ui:composition>
+</html>

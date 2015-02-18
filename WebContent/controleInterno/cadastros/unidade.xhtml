@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<body>
+
+	<ui:composition template="/templates/principal.xhtml">
+		<ui:define name="corpo">
+			<h:form id="form">
+
+
+				<center>
+					<h:panelGroup id="panelUnidade">
+						<p:messages id="messages" showDetail="true" autoUpdate="true"
+							closable="true" />
+						<h:inputHidden value="#{unidadeBean.unidade.id}" />
+						<p:panelGrid id="editarUnidade" columns="2" style="width:80%; height:100%; margin-top:20px;">
+							<f:facet name="header">
+								<p:outputLabel value="Cadastro de Unidade" />
+							</f:facet>
+
+							<h:outputLabel for="orgao" value="Órgão: *" />
+							<p:selectOneMenu id="orgao" value="#{unidadeBean.unidade.orgao}"
+								label="orgao" converter="#{orgaoConverter}">
+								<f:selectItem itemLabel="" itemValue="" />
+								<f:selectItems value="#{unidadeBean.listaOrgao}" var="o"
+									itemValue="#{o}" itemLabel="#{o.descricao}" />
+							</p:selectOneMenu>
+
+
+							<h:outputLabel for="codigo" value="Código da Unidade: " />
+							<p:inputText id="codigo" value="#{unidadeBean.unidade.codigo}"
+								maxlength="2" size="2" />
+
+							<h:outputLabel for="descricao" value="Descrição: *" />
+							<p:inputText id="descricao"
+								value="#{unidadeBean.unidade.descricao}" label="descricao"
+								maxlength="50" size="50" />
+
+
+							<f:facet name="footer">
+								<p:commandButton id="selectButton" icon="ui-icon-disk"
+									value="Gravar" action="#{unidadeBean.gravar}"
+									update="tabela,form">
+								</p:commandButton>
+								<p:commandButton id="limpar" icon="ui-icon-document"
+									value="Limpar" action="#{unidadeBean.limpar}" update="panelUnidade">
+								</p:commandButton>
+
+							</f:facet>
+
+						</p:panelGrid>
+
+
+						<p:dataTable id="tabela" var="u" value="#{unidadeBean.lista}"
+							style="width : 80%;">
+							<f:facet name="header">
+								<p:outputLabel value="Registros cadastrados" />
+							</f:facet>
+
+							<p:column headerText="Código">
+								<h:outputText value="#{u.codigo}" />
+							</p:column>
+
+							<p:column headerText="Órgão">
+								<h:outputText value="#{u.orgao.descricao}" />
+							</p:column>
+
+							<p:column headerText="Descrição">
+								<h:outputText value="#{u.descricao}" />
+							</p:column>
+
+
+							<p:column style="width:4%">
+								<h:commandLink id="selectButton"
+									icon="/resources/imagens/editar16.png" ajax="false"
+									action="#{unidadeBean.editar}">
+									<p:graphicImage value="/resources/imagens/editar16.png" />
+									<f:setPropertyActionListener value="#{u}"
+										target="#{unidadeBean.unidade}" />
+								</h:commandLink>
+								
+							</p:column>
+							<f:facet name="footer">
+								<div align="right">
+									<p:panelGrid columns="2" style="text-align: right; width:20%;">
+										<p:outputLabel value="listados:" />
+										<p:outputLabel value="#{unidadeBean.lista.size()}" />
+									</p:panelGrid>
+								</div>
+							</f:facet>
+
+						</p:dataTable>
+
+					</h:panelGroup>
+				</center>
+			</h:form>
+
+
+		</ui:define>
+	</ui:composition>
+</body>
+</html>

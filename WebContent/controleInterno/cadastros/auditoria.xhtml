@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<body>
+
+	<ui:composition template="/templates/principal.xhtml">
+		<ui:define name="corpo">
+			<h:form id="formAuditoria">
+				<center>
+					<p:messages id="messages" showDetail="true" autoUpdate="true"
+						closable="true" />
+					<h:inputHidden value="#{auditoriaBean.auditoria.id}" />
+
+					<p:panelGrid id="editarAuditoria" columns="2"
+						style="width:80%; height:100%; margin-top:20px;">
+						<f:facet name="header">
+							<p:outputLabel value="Cadastro de Auditoria" />
+						</f:facet>
+
+						<h:outputLabel for="periodoInicialDate" value="Período inicial: " />
+						<p:calendar id="periodoInicialDate"
+							value="#{auditoriaBean.auditoria.periodoInicial}"
+							label="periodoInicial" size="10" >
+							<f:convertDateTime pattern="dd/MM/yyyy"/> 
+							</p:calendar>
+
+						<h:outputLabel for="periodoFinalDate" value="Período final: " />
+						<p:calendar id="periodoFinalDate"
+							value="#{auditoriaBean.auditoria.periodoFinal}"
+							label="periodoFinal" size="10" >
+							<f:convertDateTime pattern="dd/MM/yyyy"/> 
+							</p:calendar>
+							
+						
+						<h:outputLabel for="auditoria" value="Número da Auditoria: *" />
+						<p:inputText id="auditoria"
+							value="#{auditoriaBean.auditoria.numeroAuditoria}"
+							label="auditoria" maxlength="10" size="10" />
+
+
+						<h:outputLabel for="observacao" value="Obs: " />
+						<p:inputTextarea id="observacao"
+							value="#{auditoriaBean.auditoria.observacao}" cols="40" rows="3" />
+
+						<h:outputLabel for="legislacao" value="Legislação: *" />
+						<p:selectOneMenu id="legislacao"
+							value="#{auditoriaBean.auditoria.legislacao}" label="legislacao"
+							converter="#{legislacaoConverter}">
+							<f:selectItem itemLabel="Escolha" itemValue="" />
+							<f:selectItems value="#{auditoriaBean.listaLegislacao}"
+								var="item" itemValue="#{item}" itemLabel="#{item.referencia}" />
+						</p:selectOneMenu>
+
+						<f:facet name="footer">
+							<p:commandButton id="selectButton" icon="ui-icon-disk"
+								value="Gravar" action="#{auditoriaBean.gravar}" update="panelAnexar">
+							</p:commandButton>
+							<p:commandButton id="voltar" icon="ui-icon-circle-arrow-w"
+								value="Voltar" action="#{auditoriaBean.voltar}" >
+							</p:commandButton>
+
+						</f:facet>
+
+					</p:panelGrid>
+
+				</center>
+
+				<center>
+					<h:panelGroup id="panelIncluirDocumentos" rendered="#{auditoriaBean.auditoria.id ne null}">
+					<p:commandButton id="incluirAuditoriaDocumento" icon="ui-icon-circle-plus"
+						value="Incluir Documentos Auditados" action="#{auditoriaBean.incluirDocumento}" >
+					</p:commandButton>
+					
+					<p:dataTable id="auditoriaDocumentos" var="a" rendered="#{auditoriaBean.listaAuditoriaDocumento ne null}"
+						value="#{auditoriaBean.listaAuditoriaDocumento}" style="width : 80%;">
+						
+
+						<p:column headerText="Tipo">
+							<h:outputText value="#{ad.tipoDocumento}" />
+						</p:column>
+						
+
+						<p:column headerText="Descrição">
+							<h:outputText value="#{ad.descricao}" />
+						</p:column>
+
+						<f:facet name="footer">
+							<div align="right">
+								<p:panelGrid columns="2" style="text-align: right; width:20%;">
+									<p:outputLabel value="listados:" />
+									<p:outputLabel value="#{auditoriaBean.listaAuditoriaDocumento.size()}" />
+								</p:panelGrid>
+							</div>
+						</f:facet>
+
+					</p:dataTable>
+					</h:panelGroup>
+
+				</center>
+				<center>
+					<h:panelGroup id="panelAnexar" rendered="#{auditoriaBean.auditoria.id ne null}">
+					<p:commandButton id="anexar" icon="ui-icon-circle-plus"
+						value="Anexar arquivos de documentos,planilhas,imagens" action="#{auditoriaBean.anexarDocumento}" >
+					</p:commandButton>
+					
+					<p:dataTable id="arquivos" var="a"
+						value="#{auditoriaBean.listaArquivo}" style="width : 80%;">
+						
+
+						<p:column headerText="Tipo">
+							<h:outputText value="#{a.tipoArquivo}" />
+						</p:column>
+
+						<p:column headerText="Descrição">
+							<h:outputText value="#{a.descricao}" />
+						</p:column>
+
+						<f:facet name="footer">
+							<div align="right">
+								<p:panelGrid columns="2" style="text-align: right; width:20%;">
+									<p:outputLabel value="listados:" />
+									<p:outputLabel value="#{auditoriaBean.listaArquivo.size()}" />
+								</p:panelGrid>
+							</div>
+						</f:facet>
+
+					</p:dataTable>
+					</h:panelGroup>
+
+				</center>
+				
+
+
+			</h:form>
+
+
+		</ui:define>
+	</ui:composition>
+</body>
+</html>

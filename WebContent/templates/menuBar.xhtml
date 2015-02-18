@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<body>
+	<ui:composition>
+		<h:form id="formMenu">
+			<center>
+				<p:menubar >
+					<p:submenu label="Cadastros Básicos" >
+						<p:submenu label="Parâmetros"
+							rendered="#{loginBean.usuarioLogado.nivel eq '5'}" >
+							<p:menuitem value="Entidade"
+								url="/controleInterno/cadastros/entidade.jsf" />
+							<p:menuitem value="Imagens"
+								url="/controleInterno/cadastros/imagemEntidade.jsf" />
+
+						</p:submenu>
+
+						<p:submenu label="Usuários">
+							<p:menuitem value="Inclusão" url="/acesso/usuario.jsf"
+								rendered="#{loginBean.usuarioLogado.nivel eq '5'}" />
+							<p:menuitem value="Consulta/Alteração"
+								url="/acesso/pesquisaUsuario.jsf"
+								rendered="#{loginBean.usuarioLogado.nivel eq '5'}" />
+							<p:menuitem value="Alterar Senha"
+								url="/acesso/alterarSenhaUsuarioLogado.jsf" />
+						</p:submenu>
+
+						<p:submenu label="Unidade Orçamentária" style="text-align : left;">
+							<p:menuitem value="Órgão"
+								url="/controleInterno/cadastros/pesquisaOrgao.jsf" />
+							<p:menuitem value="Unidade"
+								url="/controleInterno/cadastros/unidade.jsf" />
+							<p:menuitem value="Subunidade"
+								url="/controleInterno/cadastros/unidadeOrcamentaria.jsf" />
+						</p:submenu>
+
+						<p:submenu label="Locais">
+							<p:menuitem value="Local"
+								url="/controleInterno/cadastros/pesquisaDepartamento.jsf" />
+
+						</p:submenu>
+					</p:submenu>
+
+					<p:submenu label="Legislação">
+						<p:menuitem value="Inclusão/Alteração"
+							url="/controleInterno/cadastros/pesquisaLegislacao.jsf" />
+					</p:submenu>
+
+					<p:submenu label="Controle Prévio">
+						<p:submenu
+							label="Normas E Procedimentos de Controle Interno (NCI)">
+
+							<p:menuitem value="Inclusão/Alteração"
+								url="/controleInterno/cadastros/pesquisaNormasProcedimentos.jsf" />
+
+							<p:menuitem value="Imprimir Manual"
+								url="/controleInterno/cadastros/manualNormasProcedimentos.jsf" />
+						</p:submenu>
+					</p:submenu>
+
+					<p:submenu label="Módulo Controle Subsequente">
+						<p:submenu label="Irregularidade">
+							<p:menuitem value="Tipo de Irregularidade"
+								url="/controleInterno/cadastros/pesquisaCodigoIrregularidade.jsf" />
+							<p:menuitem value="Associar Documentos a Irregularidade Possíveis"
+								url="/controleInterno/cadastros/pesquisaIrregularidades.jsf" />
+						</p:submenu>
+						<p:submenu label="Auditoria">
+							<p:menuitem value="Inclusão/Alteração" ajax="false"
+								url="/controleInterno/cadastros/pesquisaAuditoria.jsf" />
+						</p:submenu>
+					</p:submenu>
+
+					<p:submenu label="Agenda de Compromissos Legais">
+						<p:menuitem value="Consulta/Alteração"
+							url="/controleInterno/cadastros/agenda.jsf" />
+						<p:submenu label="Notificações">
+							<p:menuitem value="Envio de Email" ajax="false"
+								url="/controleInterno/cadastros/envioEmail.jsf" />
+						</p:submenu>
+					</p:submenu>
+
+
+				</p:menubar>
+			</center>
+		</h:form>
+
+	</ui:composition>
+
+</body>
+
+
+</html>

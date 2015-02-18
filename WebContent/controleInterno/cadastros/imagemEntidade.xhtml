@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/templates/principal.xhtml">
+	<ui:define name="corpo">
+		<h:form enctype="multipart/form-data" id="formImagens">
+
+<center>		
+			<p:messages id="messages" showDetail="true" autoUpdate="true"
+				closable="true" />
+
+			<p:panel style="width:80%; height:100%; margin-top:50px;">
+				<f:facet name="header">
+					<p:outputLabel value="Imagens do Sistema" />
+				</f:facet>
+
+
+					<p:outputPanel id="panel" >
+
+						<p:panelGrid columns="2" style="width : 80%;">
+							<f:facet name="header" >
+
+								<p:outputLabel value="Brasão" />
+							</f:facet>
+
+							<p:graphicImage value="#{imagemBean.fileBrasao}" id="imagem"
+								cache="false" width="200" height="200"
+								rendered="#{imagemBean.fileBrasao != null}" />
+
+							<p:fileUpload
+								fileUploadListener="#{imagemBean.handleFileUploadBrasao}"
+								mode="advanced" update="panel" auto="true" sizeLimit="200000000"
+								allowTypes="/(\.|\/)(gif|jpe?g|png)$/" label="Procurar..." />
+								
+								
+							<p:outputLabel for="descricao" value="Descrição:" />
+							<p:inputTextarea id="descricao" value="#{imagemBean.imagem.descricao}" />	
+							
+							<f:facet name="footer">
+							
+								<p:commandButton id="selectButton" icon="ui-icon-disk"
+									value="Gravar" action="#{imagemBean.gravar}" ajax="false"> 
+								</p:commandButton>
+
+							</f:facet>
+
+						</p:panelGrid>
+
+					</p:outputPanel>
+
+
+
+			</p:panel>
+			</center>
+		</h:form>
+
+
+	</ui:define>
+</ui:composition>
+</html>

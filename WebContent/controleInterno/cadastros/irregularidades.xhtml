@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<body>
+
+	<ui:composition template="/templates/principal.xhtml">
+		<ui:define name="corpo">
+			<h:form id="formIrregularidade">
+	<center>
+				<p:messages id="messages" showDetail="true" autoUpdate="true"
+					closable="true" />
+				<h:inputHidden value="#{irregularidadeBean.irregularidade.id}" />
+			
+					<p:panelGrid id="editarIrregularidade" columns="2"
+						style="width:80%; height:100%; margin-top:20px;">
+						<f:facet name="header">
+							<p:outputLabel value="Cadastro de Irregularidade" />
+						</f:facet>
+
+
+						<h:outputLabel for="tipoDocumento" value="Tipo documento: *" />
+						<p:selectOneMenu id="tipoDocumento"
+							value="#{irregularidadeBean.irregularidade.tipoDocumento}">
+							<f:selectItem itemLabel="Escolha" itemValue="" />
+							<f:selectItem itemLabel="NE: Nota de Empenho" itemValue="NE" />
+							<f:selectItem itemLabel="NSE: Nota de Subempenho" itemValue="NSE" />
+							<f:selectItem itemLabel="NP: Nota de Pagamento" itemValue="NP" />
+							<f:selectItem itemLabel="PL: Processo de Licitação" itemValue="PL" />
+							<f:selectItem itemLabel="CV: Convênio" itemValue="CV" />
+						</p:selectOneMenu>
+						
+							 
+							 <h:outputLabel for="codigo" value="Irregularidade: *" />
+						<p:selectOneMenu id="codigo"
+							value="#{irregularidadeBean.irregularidade.codigoIrregularidade}" converter="#{codigoIrregularidadeConverter}" >
+							<f:selectItem itemLabel="" itemValue="" />
+							<f:selectItems value="#{irregularidadeBean.listaCodigoIrregularidade}" 
+							var="ci" itemLabel="#{ci.codigoDescricao}" itemValue="#{ci}" />
+						</p:selectOneMenu>
+
+						<f:facet name="footer">
+							<p:commandButton id="selectButton" icon="ui-icon-disk"
+								value="Gravar" action="#{irregularidadeBean.gravar}">
+							</p:commandButton>
+							<p:commandButton id="voltar" icon="ui-icon-circle-arrow-w"
+								value="Voltar" action="#{irregularidadeBean.voltar}" >
+							</p:commandButton>
+
+
+						</f:facet>
+
+					</p:panelGrid>
+
+				</center>
+
+			</h:form>
+
+
+		</ui:define>
+	</ui:composition>
+</body>
+</html>

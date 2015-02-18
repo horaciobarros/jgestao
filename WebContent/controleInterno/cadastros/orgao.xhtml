@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<body>
+
+	<ui:composition template="/templates/principal.xhtml">
+		<ui:define name="corpo">
+			<h:form id="formOrgao">
+
+				<center>
+					<p:messages id="messages" showDetail="true" autoUpdate="true"
+						closable="true" />
+
+					<h:inputHidden value="#{orgaoBean.orgao.id}" />
+					
+					<p:panelGrid id="editarOrgao" columns="2" style="width:80%; height:100%; margin-top:20px;">
+						<f:facet name="header">
+							<p:outputLabel value="Cadastro de Órgãos" />
+						</f:facet>
+
+						
+						<h:outputLabel for="codigo" value="Código do órgão: " />
+						<p:inputText id="codigo" value="#{orgaoBean.orgao.codigo}"
+							maxlength="2" size="2" />
+
+						<h:outputLabel for="descricao" value="Descrição: *" />
+						<p:inputText id="descricao" value="#{orgaoBean.orgao.descricao}"
+							label="descricao" maxlength="50" size="50" />
+
+						<f:facet name="footer">
+							<p:commandButton id="selectButton" icon="ui-icon-disk"
+								value="Gravar" action="#{orgaoBean.gravar}" update="formOrgao">
+							</p:commandButton>
+							
+							<p:commandButton id="voltar" icon="ui-icon-circle-arrow-w"
+								value="Voltar" action="#{orgaoBean.voltar}" >
+								
+							</p:commandButton>
+
+
+						</f:facet>
+
+					</p:panelGrid>
+
+				</center>
+			
+							</h:form>
+
+
+		</ui:define>
+	</ui:composition>
+</body>
+</html>

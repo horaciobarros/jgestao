@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<body >
+
+	<ui:composition template="/templates/principal.xhtml">
+		<ui:define name="corpo">
+			<h:form id="formEntidade" >
+				<center>
+ 				<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" /> 
+				
+					<p:panelGrid id="editarEntidade" columns="2"
+						style="width:80%; height:100%; margin-top:20px; ">
+						<f:facet name="header">
+							<p:outputLabel value="Cadastro de Entidade" />
+						</f:facet>
+						
+						<h:outputLabel for="tipo" value="Entidade: *" />
+						<p:selectOneMenu id="tipo" value="#{entidadeBean.entidade.tipo}"
+							label="tipo" size="1" maxlength="1">
+							<f:selectItem itemLabel="Escolha" itemValue="" />
+							<f:selectItem itemLabel=" Prefeitura" itemValue="1" />
+							<f:selectItem itemLabel=" Câmara" itemValue="2" />
+							<f:selectItem itemLabel=" Instituto de Previdência" itemValue="3" />
+							<f:selectItem itemLabel=" Fundação" itemValue="4" />
+							<f:selectItem itemLabel=" Autarquia" itemValue="5" />
+							<f:selectItem itemLabel=" Fundo" itemValue="6" />
+						</p:selectOneMenu>
+
+						<h:outputLabel for="nome" value="Nome: *" />
+						<p:inputText id="nome" value="#{entidadeBean.entidade.nome}"
+							 label="Nome" maxlength="50" size="50"/>
+
+						
+						
+						<h:outputLabel for="endereco" value="Endereço: *" />
+						<p:inputText id="endereco" value="#{entidadeBean.entidade.endereco}"
+							label="Endereco" maxlength="50" size="50"/>
+							
+							<h:outputLabel for="cidade" value="Cidade: *" />
+						<p:inputText id="cidade" value="#{entidadeBean.entidade.cidade}"
+							label="Cidade" maxlength="30" size="30"/>
+							
+								<h:outputLabel for="estado" value="Estado: *" />
+						<p:inputText id="estado" value="#{entidadeBean.entidade.estado}"
+							label="Estado"  size="2" maxlength="2"/>
+							
+							<h:outputLabel for="site" value="Site: " />
+						<p:inputText id="site" value="#{entidadeBean.entidade.site}"
+							label="site" maxlength="60" size="60"/>
+							
+								<h:outputLabel for="email" value="Email do controle interno: " />
+						<p:inputTextarea id="email" value="#{entidadeBean.entidade.email}"
+							label="email" rows="3" cols="40"/>
+							
+								
+						
+						
+						<f:facet name="footer">
+							<p:commandButton id="selectButton" icon="ui-icon-disk"
+								value="Gravar" action="#{entidadeBean.gravar}">
+							</p:commandButton>
+							
+						
+						</f:facet>
+
+					</p:panelGrid>
+
+				</center>
+
+			</h:form>
+
+
+		</ui:define>
+	</ui:composition>
+</body>
+</html>

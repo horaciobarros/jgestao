@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<head>
+<title></title>
+
+<style>
+body {
+	text-align: left;
+	margin: 0;
+	padding: 0;
+	background: #FFF;
+	font-family: Tahoma, Arial, Helvetica, sans-serif;
+	color: #4d4d4f;
+	font-size: 13px;
+}
+
+#site {
+	width: 1400px;
+}
+
+#topo {
+	background-color: #C1CDCD;
+	float: center; repeat-x;
+	width: 100%;
+	height: 100px;
+}
+
+#barra {
+	width: 100%;
+	height: 20px;
+	background-color: #888888;
+	float: center;
+	repeat-x;
+}
+
+#barra_espaco {
+	width: 100%;
+	height: 20px;
+	float: center;
+	repeat-x;
+}
+
+#col1 {
+	width: 300px;
+	float: left;
+	height: 300px;
+}
+
+#col2 {
+	width: 400px;
+	float: left;
+	height: 400px;
+}
+
+#col3 {
+	width: 450px;
+	float: left;
+	height: 500px;
+	background: url(images/arvore_de_valores.png) no-repeat center center;
+}
+</style>
+
+</head>
+<h:body>
+
+	<div id="site">
+		<div id="topo">
+
+			<table
+				style="align: left; position: relative; top: 23px; left: 15%; width: 200px">
+				<tr>
+					<td><img src="images/logos.png" width="474" height="54" /></td>
+				</tr>
+			</table>
+		</div>
+		<div id="barra"></div>
+		<div id="barra_espaco"></div>
+		<div id="col1">&nbsp;</div>
+		<div id="col2">
+			<h1>Canal Direto</h1>
+			<p>Bem-vindo!</p>
+			<p>PREFEITURA MUNICIPAL DE XXXXX SECRETARIA DE CONTROLE INTERNO
+				NOTIFICAÇÃO Esta controladoria vem por meio da presente alertar
+				vossa senhoria que hoje expira o prazo para envio do sicom data base
+				outubro /2014 para o TCE MG.</p>
+			<br />
+			<hr />
+
+			<h:commandButton  alt="Limpar"
+				action="#{canalDiretoBean.limpar}" />
+			<h:commandButton  alt="Enviar"
+				action="#{canalDiretoBean.enviar}" />
+		</div>
+
+		</h:form>
+
+
+
+	</div>
+
+	<div id="col3"></div>
+
+
+</h:body>
+</html>
+

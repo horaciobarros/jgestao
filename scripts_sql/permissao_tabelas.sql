@@ -1,0 +1,14 @@
+GRANT SELECT,UPDATE,DELETE,INSERT ON departamento to horaciob;
+GRANT SELECT,UPDATE,DELETE,INSERT ON auditoria to horaciob;
+GRANT SELECT,UPDATE,DELETE,INSERT ON codigo_irregularidade to horaciob;
+GRANT SELECT,UPDATE,DELETE,INSERT ON empresa to horaciob;
+GRANT SELECT,UPDATE,DELETE,INSERT ON entidade to horaciob;
+GRANT SELECT,UPDATE,DELETE,INSERT ON imagem to horaciob;
+GRANT SELECT,UPDATE,DELETE,INSERT ON irregularidades to horaciob;
+GRANT SELECT,UPDATE,DELETE,INSERT ON legislacao to horaciob;
+GRANT SELECT,UPDATE,DELETE,INSERT ON normas_procedimentos to horaciob;
+GRANT SELECT,UPDATE,DELETE,INSERT ON tipo_legislacao to horaciob;
+GRANT SELECT,UPDATE,DELETE,INSERT ON tipo_sistema to horaciob;
+GRANT SELECT,UPDATE,DELETE,INSERT ON unidade_orcamentaria to horaciob;
+gRANT SELECT,UPDATE,DELETE,INSERT ON unidade to horaciob;
+gRANT SELECT,UPDATE,DELETE,INSERT ON orgao to horaciob;

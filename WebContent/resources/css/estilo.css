@@ -1,0 +1,71 @@
+body,td,th {
+	
+}
+
+#cabecalho {
+	
+}
+
+#container {
+	
+}
+
+#titulo {
+	}
+
+#barra_menu {
+	background: url(#{ resource [ 'imagens:fundo_barra_menu.png' ]
+}
+
+
+#barra_opcoes {
+	
+	
+}
+
+#corpo {
+
+}
+
+#corpologin {
+	
+}
+
+#rodape {
+	background: #8DB6CD;
+	height: 20px;
+	margin-bottom: 5px;
+	padding: 10px;
+	text-align: center;
+	bottom: 10px;
+	position: fixed;
+}
+
+.info {
+	font-weight: bold;
+	color: green;
+}
+
+.warn {
+	font-weight: bold;
+	color: #FFCC00;
+}
+
+.fatal,.error {
+	font-weight: bold;
+	color: red;
+}
+
+.erro {
+	color: red;
+}
+
+.ui-stack {
+	bottom: 110px;
+	position: fixed;
+	right: 600px;
+}
+
+.panelGridCenter {
+	margin: 0 auto;
+}

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<body>
+
+	<ui:composition template="/templates/principal.xhtml">
+		<ui:define name="corpo">
+			<h:form id="formnormasProcedimentos">
+				<center>
+					<p:messages id="messages" showDetail="true" autoUpdate="true"
+						closable="true" />
+					<h:inputHidden
+						value="#{normasProcedimentosBean.normasProcedimentos.id}" />
+
+					<p:panelGrid id="editarnormasProcedimentos" columns="2"
+						style="width:80%; height:100%; margin-top:20px;">
+						<f:facet name="header">
+							<p:outputLabel value="Cadastro de Normas e procedimentos" />
+						</f:facet>
+
+						<p:panelGrid columns="2">
+							<h:outputLabel for="idReadOnly"
+								value="Código de Normas e Procedimentos: " />
+							<p:inputText id="idReadOnly"
+								value="#{normasProcedimentosBean.normasProcedimentos.id}"
+								maxlength="5" size="5" readonly="true" />
+
+							<h:outputLabel for="tipo" value="Tipo: *" />
+							<p:selectOneMenu id="tipo"
+								value="#{normasProcedimentosBean.normasProcedimentos.tipo}">
+								<f:selectItem itemLabel="" itemValue="" />
+								<f:selectItem itemLabel="NCI:  Norma de controle interno"
+									itemValue="NCI" />
+								<f:selectItem itemLabel="IN: Instrução Normativa" itemValue="IN" />
+							</p:selectOneMenu>
+
+							<h:outputLabel for="numero" value="Número: *" />
+							<p:inputText id="numero"
+								value="#{normasProcedimentosBean.normasProcedimentos.numero}"
+								label="numero" maxlength="10" size="10" />
+
+							<h:outputLabel for="ano" value="Ano: *" />
+							<p:selectOneMenu id="ano"
+								value="#{normasProcedimentosBean.normasProcedimentos.ano}">
+								<f:selectItem itemLabel="" itemValue="" />
+								<f:selectItem itemLabel="2011" itemValue="2011" />
+								<f:selectItem itemLabel="2012" itemValue="2012" />
+								<f:selectItem itemLabel="2013" itemValue="2013" />
+								<f:selectItem itemLabel="2014" itemValue="2014" />
+								<f:selectItem itemLabel="2015" itemValue="2015" />
+								<f:selectItem itemLabel="2016" itemValue="2016" />
+								<f:selectItem itemLabel="2017" itemValue="2017" />
+								<f:selectItem itemLabel="2018" itemValue="2018" />
+								<f:selectItem itemLabel="2019" itemValue="2019" />
+								<f:selectItem itemLabel="2020" itemValue="2020" />
+								<f:selectItem itemLabel="2021" itemValue="2021" />
+								<f:selectItem itemLabel="2022" itemValue="2022" />
+								<f:selectItem itemLabel="2023" itemValue="2023" />
+								<f:selectItem itemLabel="2024" itemValue="2024" />
+								<f:selectItem itemLabel="2025" itemValue="2025" />
+							</p:selectOneMenu>
+						</p:panelGrid>
+
+						<p:panelGrid columns="2">
+							<h:outputLabel for="areaAplicacao" value="Área aplicação: *" />
+							<p:selectOneMenu id="areaAplicacao"
+								value="#{normasProcedimentosBean.normasProcedimentos.departamento}"
+								converter="#{departamentoConverter}" maxlength="50">
+								<f:selectItem itemLabel="" itemValue="" />
+								<f:selectItems
+									value="#{normasProcedimentosBean.listaDepartamento}" var="d"
+									itemValue="#{d}" itemLabel="#{d.descricao}" />
+							</p:selectOneMenu>
+
+							<h:outputLabel for="dataElaboracaoDate" value="Data elaboração: *" />
+							<p:calendar id="dataElaboracaoDate"
+								value="#{normasProcedimentosBean.normasProcedimentos.dataElaboracao}"
+								label="dataElaboracao" size="10" pattern="dd/MM/yyyy">
+								<f:convertDateTime pattern="dd/MM/yyyy" />
+							</p:calendar>
+
+							<h:outputLabel for="referencia" value="Referência: " />
+							<p:inputText id="referencia"
+								value="#{normasProcedimentosBean.normasProcedimentos.referencia}"
+								label="referencia" maxlength="50" size="50" />
+
+							<h:outputLabel for="areasInteresse" value="Áreas de interesse: " />
+							<p:inputText id="areasInteresse"
+								value="#{normasProcedimentosBean.normasProcedimentos.areasInteresse}"
+								label="areasInteresse" maxlength="50" size="50" />
+
+							<h:outputLabel for="legislacao" value="Legislação: *" />
+							<p:selectOneMenu id="legislacao"
+								value="#{normasProcedimentosBean.normasProcedimentos.legislacao}"
+								maxlength="50" label="legislacao"
+								converter="#{legislacaoConverter}">
+								<f:selectItem itemLabel="Escolha" itemValue="" />
+								<f:selectItems
+									value="#{normasProcedimentosBean.listaLegislacao}" var="l"
+									itemLabel="#{l.referencia}" itemValue="#{l}" />
+							</p:selectOneMenu>
+						</p:panelGrid>
+					</p:panelGrid>
+
+					<p:panel style="width:80%; height:100%;">
+						<h:outputLabel for="texto" value="Texto " />
+						<p:editor id="texto"
+							value="#{normasProcedimentosBean.normasProcedimentos.texto}"
+							label="texto" rows="10" cols="100" 
+							controls="bold italic underline font size style color justify undo redo rule copy paste numbering alignleft center alignright " />
+
+
+						<f:facet name="footer">
+							<p:commandButton id="selectButton" icon="ui-icon-disk"
+								value="Gravar" action="#{normasProcedimentosBean.gravar}">
+							</p:commandButton>
+							<p:commandButton id="voltar" icon="ui-icon-circle-arrow-w"
+								value="Voltar" action="#{normasProcedimentosBean.voltar}" >
+							</p:commandButton>
+
+
+						</f:facet>
+					</p:panel>
+
+
+
+				</center>
+
+			</h:form>
+
+
+		</ui:define>
+	</ui:composition>
+</body>
+</html>

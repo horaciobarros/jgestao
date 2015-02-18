@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<body>
+
+	<ui:composition template="/templates/principal.xhtml">
+		<ui:define name="corpo">
+			<h:form id="formUnidade">
+
+				<center>
+					<p:messages id="messages" showDetail="true" autoUpdate="true"
+						closable="true" />
+					<h:panelGroup id="panelUnidadeOrcamentaria" >
+
+						<h:inputHidden
+							value="#{unidadeOrcamentariaBean.unidadeOrcamentaria.id}" />
+
+						<p:panelGrid id="editarUnidade" columns="2" style="width:80%; height:100%; margin-top:20px;">
+							<f:facet name="header">
+								<p:outputLabel value="Cadastro de Sub Unidades Orçamentárias" />
+							</f:facet>
+
+
+							<h:outputLabel for="unidade" value="Unidade: *" />
+							<p:selectOneMenu id="unidade"
+								value="#{unidadeOrcamentariaBean.unidadeOrcamentaria.unidade}"
+								label="tipo" size="1" maxlength="1" converter="#{unidadeConverter}" >
+								<f:selectItem itemLabel="" itemValue="" />
+
+								<f:selectItems value="#{unidadeOrcamentariaBean.listaUnidade}"
+									var="o" itemValue="#{o}" itemLabel="#{o.descricao}" />
+							</p:selectOneMenu>
+
+							<h:outputLabel for="codigo" value="Código da SubUnidade: " />
+							<p:inputText id="codigo"
+								value="#{unidadeOrcamentariaBean.unidadeOrcamentaria.codigo}"
+								maxlength="2" size="2" />
+
+							<h:outputLabel for="descricao" value="Descrição: *" />
+							<p:inputText id="descricao"
+								value="#{unidadeOrcamentariaBean.unidadeOrcamentaria.descricao}"
+								label="descricao" maxlength="50" size="50" />
+
+
+							<f:facet name="footer">
+
+								<p:commandButton id="selectButton" icon="ui-icon-disk"
+									value="Gravar" action="#{unidadeOrcamentariaBean.gravar}"
+									update="panelUnidadeOrcamentaria">
+								</p:commandButton>
+								<p:commandButton id="limpar" icon="ui-icon-document"
+									value="Limpar" action="#{unidadeOrcamentariaBean.limpar}"
+									update="panelUnidadeOrcamentaria">
+								</p:commandButton>
+
+							</f:facet>
+
+
+						</p:panelGrid>
+
+						<p:dataTable id="tabela" var="u"
+							value="#{unidadeOrcamentariaBean.lista}" style="width : 80%;">
+							<f:facet name="header">
+								<p:outputLabel value="Registros cadastrados" />
+							</f:facet>
+
+							<p:column headerText="Código">
+								<h:outputText value="#{u.codigo}" />
+							</p:column>
+
+							<p:column headerText="Unidade">
+								<h:outputText value="#{u.unidade.descricao}" />
+							</p:column>
+
+							<p:column headerText="Descrição">
+								<h:outputText value="#{u.descricao}" />
+							</p:column>
+
+
+							<p:column style="width:4%">
+								<h:commandLink id="selectButton"
+									icon="/resources/imagens/editar16.png" ajax="false"
+									action="#{unidadeOrcamentariaBean.editar}">
+									<p:graphicImage value="/resources/imagens/editar16.png" />
+									<f:setPropertyActionListener value="#{u}"
+										target="#{unidadeOrcamentariaBean.unidadeOrcamentaria}" />
+								</h:commandLink>
+							</p:column>
+							<f:facet name="footer">
+								<div align="right">
+									<p:panelGrid columns="2" style="text-align: right; width:20%;">
+										<p:outputLabel value="listados:" />
+										<p:outputLabel value="#{unidadeBean.lista.size()}" />
+									</p:panelGrid>
+								</div>
+							</f:facet>
+
+						</p:dataTable>
+
+					</h:panelGroup>
+
+				</center>
+
+			</h:form>
+
+
+		</ui:define>
+	</ui:composition>
+</body>
+</html>

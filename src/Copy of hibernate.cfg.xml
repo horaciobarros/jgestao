@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='utf-8'?> 
+<!DOCTYPE hibernate-configuration PUBLIC 
+"-//Hibernate/Hibernate Configuration DTD 3.0//EN" 
+"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+	<session-factory>
+		<property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+		<property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+		<property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/horaciob_jgestao?autoReconnect=true</property>
+		<property name="hibernate.connection.username">horaciob</property>
+		<property name="hibernate.connection.password">hbsAuper2@</property>
+		<property name="hibernate.temp.use_jdbc_metadata_defaults">false</property>
+		<mapping class="acesso.model.Usuario" />
+		<mapping class="acesso.model.Empresa" />
+		<mapping class="acesso.model.UsuarioEmpresa" />
+		<mapping class="acesso.model.TipoSistema" />
+		<mapping class="controleInterno.model.Entidade" />
+		<mapping class="controleInterno.model.Departamento" />
+		<mapping class="controleInterno.model.Imagem" />
+		<mapping class="controleInterno.model.Legislacao" />
+		<mapping class="controleInterno.model.TipoLegislacao" />
+		<mapping class="controleInterno.model.NormasProcedimentos" />
+		<mapping class="controleInterno.model.Irregularidade" />
+		<mapping class="controleInterno.model.UnidadeOrcamentaria" />
+		<mapping class="controleInterno.model.CodigoIrregularidade" />
+		<mapping class="controleInterno.model.Auditoria" />
+		<mapping class="controleInterno.model.Orgao" />
+		<mapping class="controleInterno.model.Unidade" />
+	</session-factory>
+</hibernate-configuration> 

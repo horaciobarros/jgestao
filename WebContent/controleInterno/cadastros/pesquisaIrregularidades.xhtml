@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+
+
+
+	<ui:composition template="/templates/principal.xhtml">
+		<ui:define name="corpo">
+			<h:form id="form">
+
+				<center>
+				<p:messages id="messages" showDetail="true" autoUpdate="true"
+						closable="true" />
+					<p:panel style="width:40%; height:100%; margin-top:50px;">
+						<f:facet name="header" style="align-text:left;">
+							<p:outputLabel value="" />
+						</f:facet>
+
+						<p:panelGrid id="pesquisarIrregularidade" columns="2"
+							>
+							<h:outputLabel for="tipoDocumento" value="Tipo documento: *" />
+						<p:selectOneMenu id="tipoDocumento"
+							value="#{irregularidadeBean.irregularidade.tipoDocumento}">
+							<f:selectItem itemLabel="Escolha" itemValue="" />
+							<f:selectItem itemLabel="NE: Nota de Empenho" itemValue="NE" />
+							<f:selectItem itemLabel="NSE: Nota de Subempenho" itemValue="NSE" />
+							<f:selectItem itemLabel="NP: Nota de Pagamento" itemValue="NP" />
+							<f:selectItem itemLabel="PL: Processo de Licitação" itemValue="PL" />
+							<f:selectItem itemLabel="PCD: Processo de Compra Direta " itemValue="PCD" />
+							<f:selectItem itemLabel="CT: Contrato" itemValue="CT" />
+							<f:selectItem itemLabel="CV: Convênio" itemValue="CV" />
+						</p:selectOneMenu>
+
+
+						</p:panelGrid>
+					</p:panel>
+					
+
+					<p:commandButton id="pesquisar" icon="ui-icon-circle-zoomout"
+						value="Pesquisar" action="#{irregularidadeBean.pesquisar}"
+						update="irregularidade">
+					</p:commandButton>
+					<p:commandButton id="incluir" icon="ui-icon-circle-plus"
+						value="Incluir" action="#{irregularidadeBean.incluir}">
+					</p:commandButton>
+				
+					<p:dataTable id="irregularidade" var="i"
+						value="#{irregularidadeBean.lista}" style="width:80%; height:100%; margin-top:50px;" emptyMessage="Nenhum registro encontrado">
+						<f:facet name="header">
+							<p:outputLabel value="Irregularidade cadastradas" />
+						</f:facet>
+
+						<p:column headerText="Código">
+							<h:outputText value="#{i.id}" />
+						</p:column>
+
+
+						<p:column headerText="Tipo Documento">
+							<h:outputText value="#{i.tipoDocumento}" />
+						</p:column>
+						
+						<p:column headerText="Irregularidade">
+							<h:outputText value="#{i.codigoIrregularidade.descricao}" />
+						</p:column>
+
+						<p:column style="width:4%">
+							<p:commandLink id="selectButton"
+								icon="/resources/imagens/editar16.png"
+								action="#{irregularidadeBean.editar}" ajax="true">
+								<p:graphicImage value="/resources/imagens/editar16.png" />
+								<f:setPropertyActionListener value="#{i}"
+									target="#{irregularidadeBean.irregularidade}" />
+							</p:commandLink>
+						</p:column>
+						<f:facet name="footer">
+							<div align="right">
+								<p:panelGrid columns="2" style="text-align: right; width:20%;">
+									<p:outputLabel value="Listados:" />
+									<p:outputLabel value="#{irregularidadeBean.lista.size()}" />
+								</p:panelGrid>
+							</div>
+						</f:facet>
+
+					</p:dataTable>
+				</center>
+
+			</h:form>
+
+
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

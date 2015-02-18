@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+
+
+	<ui:composition template="/templates/principal.xhtml">
+		<ui:define name="barra_opcoes">
+			<h:form>
+			<p:panel>
+				<p:dock position="top">
+
+					<p:menuitem value="Acesso" icon="/resources/imagens/usuario.jpg"
+						url="/acesso/pesquisaUsuario.jsf" ajax="false" />
+					<p:menuitem value="A desenvolver"
+						icon="/resources/imagens/music.png" url="#" />
+					<p:menuitem value="A desenvolver"
+						icon="/resources/imagens/video.png" url="#" />
+					<p:menuitem value="A desenvolver"
+						icon="/resources/imagens/email.png" url="#" />
+					<p:menuitem value="A desenvolver"
+						icon="/resources/imagens/portfolio.png" url="#" />
+					<p:menuitem value="A desenvolver"
+						icon="/resources/imagens/link.png" url="#" />
+					<p:menuitem value="A desenvolver" icon="/resources/imagens/rss.png"
+						url="#" />
+					<p:menuitem value="A desenvolver"
+						icon="/resources/imagens/history.png" url="#" />
+				</p:dock>
+
+</p:panel>
+
+			</h:form>
+		</ui:define>
+
+	</ui:composition>
+
+</h:body>
+
+
+</html>

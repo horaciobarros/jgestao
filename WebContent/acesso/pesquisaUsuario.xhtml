@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+
+
+	<ui:composition template="/templates/principal.xhtml">
+		<ui:define name="corpo">
+			<h:form id="form">
+				<center>
+
+					<p:dataTable id="usuarios" var="u" value="#{usuarioBean.lista}"
+						style="width:80%; height:100%; margin-top:50px;" emptyMessage="Nenhum registro encontrado">
+						<f:facet name="header">
+							<p:outputLabel value="Usuários cadastrados" />
+						</f:facet>
+
+						<p:column headerText="Login">
+							<h:outputText value="#{u.login}" />
+						</p:column>
+
+						<p:column headerText="Nome">
+							<h:outputText value="#{u.nome}" />
+						</p:column>
+
+						<p:column headerText="Nível">
+							<h:outputText value="#{u.nivel}" />
+						</p:column>
+
+						<p:column headerText="cpf">
+							<h:outputText value="#{u.cpf}" />
+						</p:column>
+						<p:column headerText="Cargo/Função">
+							<h:outputText value="#{u.cargoFuncao}" />
+						</p:column>
+
+						<p:column style="width:4%">
+							<p:commandLink id="selectButton"
+								icon="/resources/imagens/editar16.png"
+								action="#{usuarioBean.editar}" ajax="true">
+								<p:graphicImage value="../resources/imagens/editar16.png" />
+								<f:setPropertyActionListener value="#{u}"
+									target="#{usuarioBean.usuario}" />
+							</p:commandLink>
+						</p:column>
+						<f:facet name="footer">
+							<div align="right">
+								<p:panelGrid columns="2" style="text-align: right; width:20%;">
+									<p:outputLabel value="Registros listados:" />
+									<p:outputLabel value="#{usuarioBean.lista.size()}" />
+								</p:panelGrid>
+							</div>
+						</f:facet>
+
+					</p:dataTable>
+
+				</center>
+				</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

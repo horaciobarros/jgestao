@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<body>
+
+	<ui:composition template="/templates/principal.xhtml">
+		<ui:define name="corpo">
+			<h:form id="formUsuario">
+				<center>	
+				<h:inputHidden id="id" value="#{loginBean.usuarioLogado.id}" />
+				<h:inputHidden id="senha" value="#{loginBean.usuarioLogado.senha}" />
+				<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" /> 
+
+			
+					<p:panelGrid id="editarUsuario" columns="4"
+						style="width:80%; height:100%; margin-top:50px;">
+						<f:facet name="header">
+							<p:outputLabel value="Cadastrar nova senha" />
+						</f:facet>
+
+						<h:outputLabel for="login" value="Login: *" />
+						<p:inputText id="login" value="#{loginBean.usuarioLogado.login}"
+							label="Nome" readonly="true"/>
+
+						<h:outputLabel for="nome" value="Nome: *" />
+						<p:inputText id="nome" value="#{loginBean.usuarioLogado.nome}"
+							required="true" label="Nome" readonly="true"/>
+
+						
+						
+						<h:outputLabel for="senha1" value="Digite nova senha: " />
+						<p:password id="senha1" value="#{loginBean.senha1}"
+							label="Nova senha" size="8" maxlength="8" />
+
+						<h:outputLabel for="senha2" value="Confirme nova senha: " />
+						<p:password id="senha2" value="#{loginBean.senha2}"
+							label="Nova senha" size="8" maxlength="8" />
+							
+							
+						<f:facet name="footer">
+							<p:commandButton id="selectButton" icon="ui-icon-disk"
+								value="Gravar" action="#{loginBean.gravarNovaSenha}">
+
+							</p:commandButton>
+
+						</f:facet>
+
+					</p:panelGrid>
+
+				</center>
+
+			</h:form>
+
+
+		</ui:define>
+	</ui:composition>
+</body>
+</html>

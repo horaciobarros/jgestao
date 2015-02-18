@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+
+
+	<ui:composition template="/templates/principal.xhtml">
+		<ui:define name="corpo">
+			<h:form id="form">
+				<center>
+				<p:messages id="messages" showDetail="true" autoUpdate="true"
+						closable="true" />
+					<h:inputHidden
+						value="#{normasProcedimentosBean.normasProcedimentos.id}" />
+
+					<p:panelGrid id="editarnormasProcedimentos" columns="2"
+						style="width:80%; height:100%; margin-top:50px;">
+						<f:facet name="header">
+							<p:outputLabel value="Manual de Normas e procedimentos" />
+						</f:facet>
+
+							<h:outputLabel for="tipo" value="Tipo: *" />
+							<p:selectOneMenu id="tipo"
+								value="#{normasProcedimentosBean.normasProcedimentos.tipo}">
+								<f:selectItem itemLabel="" itemValue="" />
+								<f:selectItem itemLabel="NCI:  Norma de controle interno"
+									itemValue="NCI" />
+								<f:selectItem itemLabel="IN: Instrução Normativa" itemValue="IN" />
+							</p:selectOneMenu>
+
+							<h:outputLabel for="numero" value="Número: *" />
+							<p:inputText id="numero"
+								value="#{normasProcedimentosBean.normasProcedimentos.numero}"
+								label="numero" maxlength="10" size="10" />
+
+							<h:outputLabel for="ano" value="Ano: *" />
+							<p:selectOneMenu id="ano"
+								value="#{normasProcedimentosBean.normasProcedimentos.ano}">
+								<f:selectItem itemLabel="" itemValue="" />
+								<f:selectItem itemLabel="2011" itemValue="2011" />
+								<f:selectItem itemLabel="2012" itemValue="2012" />
+								<f:selectItem itemLabel="2013" itemValue="2013" />
+								<f:selectItem itemLabel="2014" itemValue="2014" />
+								<f:selectItem itemLabel="2015" itemValue="2015" />
+								<f:selectItem itemLabel="2016" itemValue="2016" />
+								<f:selectItem itemLabel="2017" itemValue="2017" />
+								<f:selectItem itemLabel="2018" itemValue="2018" />
+								<f:selectItem itemLabel="2019" itemValue="2019" />
+								<f:selectItem itemLabel="2020" itemValue="2020" />
+								<f:selectItem itemLabel="2021" itemValue="2021" />
+								<f:selectItem itemLabel="2022" itemValue="2022" />
+								<f:selectItem itemLabel="2023" itemValue="2023" />
+								<f:selectItem itemLabel="2024" itemValue="2024" />
+								<f:selectItem itemLabel="2025" itemValue="2025" />
+							</p:selectOneMenu>
+						</p:panelGrid>
+
+					<p:commandButton id="pesquisar" icon="ui-icon-circle-zoomout"
+						value="Imprimir" action="#{normasProcedimentosBean.imprimirManual}" ajax="false"
+						>
+					</p:commandButton>
+
+				</center>
+
+			</h:form>
+
+
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

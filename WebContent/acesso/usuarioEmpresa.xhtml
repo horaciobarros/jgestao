@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j">
+<body>
+	<f:view>
+		<ui:composition template="/templates/layout.xhtml">
+			<ui:define name="titulo">
+				<h:outputText value="Autorização para acesso a empresas" />
+			</ui:define>
+			<ui:define name="body">
+				<h:form id="form">
+					<table>
+						<tr>
+							<td><h:commandButton size="100px" value="Incluir"
+									action="#{usuarioEmpresaBean.incluir}"
+									image="/resources/imagens/mainnav_include_over.gif" /></td>
+							<td><h:commandButton size="100px"
+									action="#{usuarioEmpresaBean.salvar}" value="salvar"
+									image="/resources/imagens/save_accept.png" reRender="form"/></td>
+
+						</tr>
+					</table>
+					<h:messages errorClass="erro" />
+
+					<h:panelGrid columns="2" id="panel">
+						<h:inputHidden id="id"
+							value="#{usuarioEmpresaBean.usuarioEmpresa.id}" size="5" />
+						<h:outputText value="" />
+
+						<h:outputText value="Usuário" />
+						<h:selectOneMenu id="cliente"
+							value="#{usuarioEmpresaBean.usuarioEmpresa.usuario}">
+							<f:selectItem itemValue="" itemLabel="Selecione" />
+							<f:selectItems value="#{usuarioEmpresaBean.usuarioList}" var="u"
+								itemValue="#{u}" itemLabel="#{u.login}" />
+							<f:converter converterId="usuarioConverter" />
+							<a4j:support event="onchange" ajaxSingle="true"/>
+						</h:selectOneMenu>
+
+						<h:outputLabel value="Empresa:" for="empresa" />
+						<h:selectOneMenu id="empresa"
+							value="#{usuarioEmpresaBean.usuarioEmpresa.empresa}">
+							<f:selectItem itemValue="" itemLabel="Selecione" />
+							<f:selectItems value="#{usuarioEmpresaBean.empresaList}" var="e"
+								itemValue="#{e}" itemLabel="#{e.razaoSocial}" />
+							<f:converter converterId="empresaConverter" />
+							<a4j:support event="onchange" ajaxSingle="true"/>
+						</h:selectOneMenu>
+						
+					</h:panelGrid>
+
+					<rich:panel id="resultadoPesquisa">
+						<f:facet name="header">
+							<h:outputText value="Autorizações já cadastradas" />
+						</f:facet>
+						<rich:dataTable
+							columnClasses="center, center,  center, center"
+							styleClass="col_comp" align="center" id="lista"
+							frozenColCount="1" value="#{usuarioEmpresaBean.lista}"
+							var="ue">
+
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Código" />
+								</f:facet>
+								<h:outputText value="#{ue.id}" />
+							</h:column>
+
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Usuario" />
+								</f:facet>
+								<h:outputText value="#{ue.usuario.login}" />
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Empresa" />
+								</f:facet>
+								<h:outputText value="#{ue.empresa.razaoSocial}" />
+							</h:column>
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Excluir" />
+								</f:facet>
+								<h:commandLink action="#{usuarioEmpresaBean.excluir}">
+									<h:graphicImage value="/resources/imagens/ico_excluir.gif"
+										style="border:0px" />
+									<f:setPropertyActionListener target="#{usuarioEmpresaBean.usuarioEmpresa}"
+										value="#{ue}" reRender="form"/>
+								</h:commandLink>
+							</h:column>
+							
+						</rich:dataTable>
+						<rich:datascroller align="center"
+							page="#{usuarioEmpresaBean.paginaAtual}" for="lista"
+							maxPages="10" />
+					</rich:panel>
+
+				</h:form>
+			</ui:define>
+		</ui:composition>
+	</f:view>
+</body>
+</html>

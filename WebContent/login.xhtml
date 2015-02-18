@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+
+<body>
+
+	<ui:composition template="/templates/interna.xhtml">
+
+		<ui:define name="corpologin">
+			<h:form id="formLogin2">
+				<p:messages id="messages" showDetail="true" autoUpdate="true"
+					closable="true" />
+				<p:panelGrid id="panelLogin" columns="2" 
+					style="margin-top:200px; margin-left:400px; background-color: transparent !important;"  >
+					<f:facet name="header">
+						<p:panelGrid columns="1">
+							<h:outputLabel value="SISTEMA DE GESTÃO DO CONTROLE INTERNO " />
+							<h:outputLabel id="entidadeNome"
+								value="#{loginBean.entidade.nome}" />
+						</p:panelGrid>
+					</f:facet>
+					<h:outputLabel value="Login:" for="usuarioLogadoLogin" />
+					<p:inputText id="usuarioLogadologin"
+						value="#{loginBean.usuarioLogado.login }" size="20" maxlength="20" />
+					<h:outputLabel value="Senha:" for="senha" />
+					<p:password id="senha" value="#{loginBean.usuarioLogado.senha}"
+						size="8" maxlength="8" />
+					<f:facet name="footer">
+						<p:commandButton action="#{loginBean.efetuaLogin }" value="Entrar"
+							id="botaoLogin" ajax="false" />
+					</f:facet>
+				</p:panelGrid>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+
+</body>
+
+
+</html>

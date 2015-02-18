@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<head>
+
+</head>
+<body>
+
+	<ui:composition template="/templates/principal.xhtml">
+		<ui:define name="corpo">
+			<h:form id="formLegislacao">
+				<center>
+					<p:messages id="messages" showDetail="true" autoUpdate="true"
+						closable="true" />
+					<h:inputHidden value="#{legislacaoBean.legislacao.id}" />
+
+					<p:panelGrid id="editarLegislacao" columns="2"
+						style="width:80%; height:100%; margin-top:20px;">
+						<f:facet name="header">
+							<p:outputLabel value="Cadastro de Legislacao" />
+						</f:facet>
+
+						<h:outputLabel for="idReadOnly" value="Código da Legislacao: " />
+						<p:outputLabel id="idReadOnly"
+							value="#{legislacaoBean.legislacao.id}" maxlength="5" size="5"
+							readonly="true" />
+
+						<h:outputLabel for="tipoLegislacao" value="Tipo: *" />
+						<p:selectOneMenu id="tipoLegislacao"
+							value="#{legislacaoBean.legislacao.tipoLegislacao}" label="tipo"
+							converter="#{tipoLegislacaoConverter}">
+							<f:selectItem itemLabel="Escolha" itemValue="" />
+							<f:selectItems value="#{legislacaoBean.listaTipoLegislacao}"
+								var="t" itemValue="#{t}" itemLabel="#{t.descricao}" />
+						</p:selectOneMenu>
+
+						<h:outputLabel for="numero" value="Número: *" />
+						<p:inputText id="numero"
+							value="#{legislacaoBean.legislacao.numero}" label="numero"
+							maxlength="10" size="10" />
+
+						<h:outputLabel for="data" value="Data: *" />
+						<p:calendar id="calendarDate"
+							value="#{legislacaoBean.legislacao.data}" label="data"
+							maxlength="10" size="10" pattern="dd/MM/yyyy">
+
+
+						</p:calendar>
+
+						<h:outputLabel for="referencia" value="Referência: *" />
+						<p:inputTextarea id="referencia"
+							value="#{legislacaoBean.legislacao.referencia}"
+							label="referencia" rows="3" cols="30" />
+
+						<h:outputLabel for="vinculo" value="Vínculo: *" />
+						<p:selectOneMenu id="vinculo"
+							value="#{legislacaoBean.legislacao.legislacaoVinculada}"
+							label="vinculo" converter="#{legislacaoConverter}">
+							<f:selectItem itemLabel="Escolha" itemValue="" />
+							<f:selectItems value="#{legislacaoBean.lista}" var="item"
+								itemValue="#{item}" itemLabel="#{item.referencia}" />
+						</p:selectOneMenu>
+
+						<h:outputLabel for="texto" value="Texto: *" />
+
+						<p:editor id="texto" value="#{legislacaoBean.legislacao.texto}"
+							label="texto" rows="10" cols="100"
+							controls="bold italic underline font size style color justify undo redo rule copy paste numbering alignleft center alignright " />
+
+						<f:facet name="footer">
+							<p:commandButton id="voltar" icon="ui-icon-circle-arrow-w"
+							
+								value="Voltar" action="#{legislacaoBean.voltar}">
+							</p:commandButton>
+							<p:commandButton id="selectButton" icon="ui-icon-disk"
+								value="Gravar" action="#{legislacaoBean.gravar}">
+							</p:commandButton>
+
+							<p:commandButton id="excluiButton" icon="ui-icon-trash"
+								value="Excluir" action="#{legislacaoBean.excluir}"
+								update="formLegislacao" rendered="#{legislacaoBean.legislacao.id ne null}"/>
+						</f:facet>
+					</p:panelGrid>
+				</center>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</body>
+</html>

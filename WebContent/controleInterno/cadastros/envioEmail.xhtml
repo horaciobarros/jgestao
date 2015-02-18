@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<body>
+
+	<ui:composition template="/templates/principal.xhtml">
+		<ui:define name="corpo">
+			<h:form id="formEnvioEmail">
+				<center>
+					<p:messages id="messages" showDetail="true" autoUpdate="true"
+						closable="true" />
+
+					<p:panelGrid id="editarEnvioEmail" columns="2"
+						style="width:30%; height:50%; margin-top:50px;">
+						<f:facet name="header">
+							<p:outputLabel value="Envio de Envio" />
+						</f:facet>
+
+						<h:outputLabel for="periodoInicialDate" value="Período inicial: " />
+						<p:calendar id="periodoInicialDate"
+							value="#{envioEmailBean.periodoInicial}"
+							label="periodoInicial" size="10" 
+							pattern="dd/MM/yyyy">
+							<f:convertDateTime pattern="dd/MM/yyyy" />
+						</p:calendar>
+
+						<h:outputLabel for="periodoFinalDate" value="Período final: " />
+						<p:calendar id="periodoFinalDate"
+							value="#{envioEmailBean.periodoFinal}"
+							label="periodoFinal" size="10" pattern="dd/MM/yyyy" >
+							<f:convertDateTime pattern="dd/MM/yyyy" />
+						</p:calendar>
+
+
+						<f:facet name="footer">
+							<p:commandButton id="selectButton" icon="ui-icon-disk"
+								value="Enviar" action="#{envioEmailBean.enviar}"
+								>
+							</p:commandButton>
+
+						</f:facet>
+
+					</p:panelGrid>
+
+				</center>
+
+
+			</h:form>
+
+
+		</ui:define>
+	</ui:composition>
+</body>
+</html>

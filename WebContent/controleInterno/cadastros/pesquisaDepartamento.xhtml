@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+
+
+	<ui:composition template="/templates/principal.xhtml">
+		<ui:define name="corpo">
+			<h:form id="form">
+
+				<center>
+					<p:commandButton id="limpar" icon="ui-icon-circle-plus" value="Incluir"
+						action="#{departamentoBean.incluir}" >
+					</p:commandButton>
+					
+					<p:dataTable id="tabela" var="d" value="#{departamentoBean.lista}"
+						style="width : 80%;" emptyMessage="Nenhum registro encontrado">
+						<f:facet name="header">
+							<p:outputLabel value="Locais cadastrados" />
+						</f:facet>
+
+						<p:column headerText="Código">
+							<h:outputText value="#{d.id}" />
+						</p:column>
+
+
+						<p:column headerText="Unidade Orçamentária">
+							<h:outputText value="#{d.unidadeOrcamentaria.descricao}" />
+						</p:column>
+
+						<p:column headerText="Nome">
+							<h:outputText value="#{d.descricao}" />
+						</p:column>
+
+						<p:column style="width:4%">
+							<h:commandLink id="selectButton2"
+								icon="/resources/imagens/editar16.png"
+								action="#{departamentoBean.editar}" ajax="false">
+								<p:graphicImage value="/resources/imagens/editar16.png" />
+								<f:setPropertyActionListener value="#{d}"
+									target="#{departamentoBean.departamento}" />
+							</h:commandLink>
+						</p:column>
+						<f:facet name="footer">
+							<div align="right">
+								<p:panelGrid columns="2" style="text-align: right; width:20%;">
+									<p:outputLabel value="listados:" />
+									<p:outputLabel value="#{departamentoBean.lista.size()}" />
+								</p:panelGrid>
+							</div>
+						</f:facet>
+
+					</p:dataTable>
+
+				</center>
+			</h:form>
+
+
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>
