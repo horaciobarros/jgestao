@@ -1,10 +1,11 @@
 package controleInterno.service;
 
+import java.io.Serializable;
 import java.util.List;
 
 import controleInterno.model.Arquivo;
 
-public interface ArquivoService {
+public interface ArquivoService extends Serializable {
 
 		public boolean salvar(Arquivo a);
 		

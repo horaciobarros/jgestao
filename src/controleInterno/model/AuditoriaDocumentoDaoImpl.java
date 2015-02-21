@@ -29,7 +29,7 @@ public class AuditoriaDocumentoDaoImpl implements AuditoriaDocumentoDao {
 		Transaction tx = sessionFactory.getCurrentSession().beginTransaction();
 		Query query = sessionFactory.getCurrentSession().createQuery(
 				"from AuditoriaDocumento e where e.id = :pId ");
-		query.setParameter("pId", auditoriadocumento.getId());
+		query.setParameter("pId", auditoriadocumento.getAuditoria().getId());
 		List lista = query.list();
 		tx.commit();
 		boolean encontrado = !lista.isEmpty();
@@ -64,12 +64,12 @@ public class AuditoriaDocumentoDaoImpl implements AuditoriaDocumentoDao {
 
 	@Override
 	public List<AuditoriaDocumento> listaPorAuditoria(Long idAuditoria) {
-		Transaction tx = sessionFactory.getCurrentSession().beginTransaction();
-		Query query = sessionFactory.getCurrentSession().createQuery(
-				"from AuditoriaDocumento e where e.id = :pId ");
-		query.setParameter("pId", idAuditoria);
-		List<AuditoriaDocumento> lista = query.list();
-		tx.commit();
-		return lista;
+		
+		StringBuffer aux = new StringBuffer();
+		Map<String,Object> map= new HashMap<String,Object>();
+		aux.append("FROM AuditoriaDocumento a WHERE 1 = 1 ");
+		aux.append(" AND a.auditoria.id = :pId");
+		map.put("pId", idAuditoria);
+		return (List<AuditoriaDocumento>) dao.findByNamedParams(aux.toString(),map);
 	}
 }

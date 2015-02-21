@@ -34,6 +34,7 @@ public class AuditoriaDocumentoBean implements Serializable {
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(
 				false);
 		auditoria = (Auditoria) session.getAttribute("auditoria");
+		auditoriaDocumento = new AuditoriaDocumento();
 		return auditoria;
 	}
 
@@ -111,7 +112,7 @@ public class AuditoriaDocumentoBean implements Serializable {
 			retorno = false;
 		}
 		
-		if (auditoriaDocumento.getDescricao() == null) {
+		if (auditoriaDocumento.getDescricao() == null || auditoriaDocumento.getDescricao().trim().isEmpty()) {
 			Util.msgErro("Descrição não informada:", MSG_ERRO_NAO_PREENCHIMENTO_CAMPOS);
 			retorno = false;
 		}
