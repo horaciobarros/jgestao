@@ -11,9 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import util.Util;
 import controleInterno.model.Auditoria;
 import controleInterno.model.AuditoriaDocumento;
-import controleInterno.service.AuditoriaService;
+import controleInterno.service.AuditoriaDocumentoService;
 
 @SessionScoped
 @Component
@@ -23,7 +24,7 @@ public class AuditoriaDocumentoBean implements Serializable {
 	private static final long serialVersionUID = -3717284916971568255L;
 	private Auditoria auditoria;
 	@Autowired
-	private AuditoriaService auditoriaRN;
+	private AuditoriaDocumentoService auditoriaDocumentoService;
 	private final String MSG_ERRO_NAO_PREENCHIMENTO_CAMPOS = "Campo deve ser informado";
 	
 	private AuditoriaDocumento auditoriaDocumento;
@@ -38,14 +39,6 @@ public class AuditoriaDocumentoBean implements Serializable {
 
 	public void setAuditoria(Auditoria auditoria) {
 		this.auditoria = auditoria;
-	}
-
-	public AuditoriaService getAuditoriaRN() {
-		return auditoriaRN;
-	}
-
-	public void setAuditoriaRN(AuditoriaService auditoriaRN) {
-		this.auditoriaRN = auditoriaRN;
 	}
 
 	public AuditoriaDocumento getAuditoriaDocumento() {
@@ -75,6 +68,64 @@ public class AuditoriaDocumentoBean implements Serializable {
 		return "/controleInterno/cadastros/auditoria.jsf";
 
 	}
+	
+	public void gravar() {
+
+		if (camposObrigatoriosPreenchidos()) {
+			if (auditoriaDocumento.getId() != null && auditoriaDocumento.getId() != 0) {
+				try {
+					
+					auditoriaDocumentoService.altera(auditoriaDocumento);
+
+					Util.msgSucesso("Dados alterados com sucesso!",
+							"Cadastro atualizado!");
+
+				} catch (Exception e) {
+
+					Util.msgErro("Erro de gravação", e.toString());
+				}
+			} else {
+				try {
+					auditoriaDocumento.setAuditoria(auditoria);
+					auditoriaDocumentoService.adiciona(auditoriaDocumento);
+
+					Util.msgSucesso("Dados gravados com sucesso!",
+							"Cadastro atualizado!");
+
+				} catch (Exception e) {
+
+					Util.msgErro("Erro de gravação", e.toString());
+				}
+
+				
+			}
+		}
+
+	}
+
+	private boolean camposObrigatoriosPreenchidos() {
+		boolean retorno = true;
+		
+		if (auditoriaDocumento.getDataDocumento() == null) {
+			Util.msgErro("Data não informada:", MSG_ERRO_NAO_PREENCHIMENTO_CAMPOS);
+			retorno = false;
+		}
+		
+		if (auditoriaDocumento.getDescricao() == null) {
+			Util.msgErro("Descrição não informada:", MSG_ERRO_NAO_PREENCHIMENTO_CAMPOS);
+			retorno = false;
+		}
+		
+		if (auditoriaDocumento.getTipoDocumento() == null) {
+			Util.msgErro("Tipo de Documento não informado:", MSG_ERRO_NAO_PREENCHIMENTO_CAMPOS);
+			retorno = false;
+		}
+
+
+
+		return retorno;
+	}
+
 	
 	
 }
