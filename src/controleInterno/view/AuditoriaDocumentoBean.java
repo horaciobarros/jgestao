@@ -2,13 +2,14 @@ package controleInterno.view;
 
 import java.io.Serializable;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import util.Util;
@@ -16,7 +17,7 @@ import controleInterno.model.Auditoria;
 import controleInterno.model.AuditoriaDocumento;
 import controleInterno.service.AuditoriaDocumentoService;
 
-@SessionScoped
+@RequestScoped
 @Component
 @ManagedBean(name = "auditoriaDocumentoBean")
 public class AuditoriaDocumentoBean implements Serializable {
@@ -26,15 +27,15 @@ public class AuditoriaDocumentoBean implements Serializable {
 	@Autowired
 	private AuditoriaDocumentoService auditoriaDocumentoService;
 	private final String MSG_ERRO_NAO_PREENCHIMENTO_CAMPOS = "Campo deve ser informado";
-	
-	private AuditoriaDocumento auditoriaDocumento;
 
+	private AuditoriaDocumento auditoriaDocumento;
+	
+	FacesContext fc;
+	HttpSession session;
+	
+	
 	public Auditoria getAuditoria() {
-		FacesContext fc = FacesContext.getCurrentInstance();
-		HttpSession session = (HttpSession) fc.getExternalContext().getSession(
-				false);
-		auditoria = (Auditoria) session.getAttribute("auditoria");
-		auditoriaDocumento = new AuditoriaDocumento();
+		auditoria = (Auditoria) getSession().getAttribute("auditoria");
 		return auditoria;
 	}
 
@@ -43,6 +44,10 @@ public class AuditoriaDocumentoBean implements Serializable {
 	}
 
 	public AuditoriaDocumento getAuditoriaDocumento() {
+
+		auditoriaDocumento = (AuditoriaDocumento) getSession()
+				.getAttribute("auditoriaDocumento");
+
 		if (auditoriaDocumento == null) {
 			auditoriaDocumento = new AuditoriaDocumento();
 		}
@@ -60,22 +65,21 @@ public class AuditoriaDocumentoBean implements Serializable {
 	public String getMSG_ERRO_NAO_PREENCHIMENTO_CAMPOS() {
 		return MSG_ERRO_NAO_PREENCHIMENTO_CAMPOS;
 	}
-	
+
 	public String voltar() {
 
-		if (this.auditoria != null && this.auditoria.equals("auditoria")) {
-			return "/controleInterno/cadastros/auditoria.jsf";
-		}
+		
 		return "/controleInterno/cadastros/auditoria.jsf";
 
 	}
-	
+
 	public void gravar() {
 
 		if (camposObrigatoriosPreenchidos()) {
-			if (auditoriaDocumento.getId() != null && auditoriaDocumento.getId() != 0) {
+			if (auditoriaDocumento.getId() != null
+					&& auditoriaDocumento.getId() != 0) {
 				try {
-					
+
 					auditoriaDocumentoService.altera(auditoriaDocumento);
 
 					Util.msgSucesso("Dados alterados com sucesso!",
@@ -98,7 +102,6 @@ public class AuditoriaDocumentoBean implements Serializable {
 					Util.msgErro("Erro de gravação", e.toString());
 				}
 
-				
 			}
 		}
 
@@ -106,27 +109,43 @@ public class AuditoriaDocumentoBean implements Serializable {
 
 	private boolean camposObrigatoriosPreenchidos() {
 		boolean retorno = true;
-		
+
 		if (auditoriaDocumento.getDataDocumento() == null) {
-			Util.msgErro("Data não informada:", MSG_ERRO_NAO_PREENCHIMENTO_CAMPOS);
+			Util.msgErro("Data não informada:",
+					MSG_ERRO_NAO_PREENCHIMENTO_CAMPOS);
 			retorno = false;
 		}
-		
-		if (auditoriaDocumento.getDescricao() == null || auditoriaDocumento.getDescricao().trim().isEmpty()) {
-			Util.msgErro("Descrição não informada:", MSG_ERRO_NAO_PREENCHIMENTO_CAMPOS);
+
+		if (auditoriaDocumento.getDescricao() == null
+				|| auditoriaDocumento.getDescricao().trim().isEmpty()) {
+			Util.msgErro("Descrição não informada:",
+					MSG_ERRO_NAO_PREENCHIMENTO_CAMPOS);
 			retorno = false;
 		}
-		
+
 		if (auditoriaDocumento.getTipoDocumento() == null) {
-			Util.msgErro("Tipo de Documento não informado:", MSG_ERRO_NAO_PREENCHIMENTO_CAMPOS);
+			Util.msgErro("Tipo de Documento não informado:",
+					MSG_ERRO_NAO_PREENCHIMENTO_CAMPOS);
 			retorno = false;
 		}
-
-
 
 		return retorno;
 	}
+	
+	public FacesContext getFc() {
+		fc = FacesContext.getCurrentInstance();
+		return fc;
+	}
 
-	
-	
+	public HttpSession getSession() {
+		session = (HttpSession) getFc().getExternalContext().getSession(
+				false);
+		return session;
+	}
+
+	public void setSession(HttpSession session) {
+		this.session = session;
+	}
+
+
 }

@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -17,7 +18,7 @@ import controleInterno.service.TipoLegislacaoService;
 import controleInterno.model.Legislacao;
 import controleInterno.model.TipoLegislacao;
 
-@Scope("request")
+@ViewScoped
 @Component
 @ManagedBean(name = "legislacaoBean")
 public class LegislacaoBean implements Serializable {

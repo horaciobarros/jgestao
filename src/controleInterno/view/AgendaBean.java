@@ -67,7 +67,9 @@ public class AgendaBean implements Serializable {
 	 * lista de eventos e montamos nosso calendario ScheduleModel atraves de um
 	 * DefaultScheduleModel
 	 */
-	@PostConstruct
+	/**@PostConstruct
+	 * 
+	 */
 	private void inicializar() {
 
 		agenda = new Agenda();

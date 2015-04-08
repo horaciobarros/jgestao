@@ -19,8 +19,9 @@
 					<p:messages id="messages" showDetail="true" autoUpdate="true"
 						closable="true" />
 					<h:inputHidden
-						value="#{auditoriaDocumentoBean.auditoriaDocumento.id}" />
-					<h:inputHidden value="#{auditoriaDocumentoBean.auditoria.id}" />
+						value="#{auditoriaBean.auditoriaDocumento.id}" />
+					<h:inputHidden value="#{auditoriaBean.auditoria.id}" />
+					
 
 					<p:panelGrid id="editarAuditoriaDocumento" columns="2"
 						style="width:80%; height:100%; margin-top:20px;">
@@ -30,7 +31,7 @@
 						
 							<h:outputLabel for="tipoDocumento" value="Tipo documento: *" />
 						<p:selectOneMenu id="tipoDocumento"
-							value="#{auditoriaDocumentoBean.auditoriaDocumento.tipoDocumento}">
+							value="#{auditoriaBean.auditoriaDocumento.tipoDocumento}">
 							<f:selectItem itemLabel="Escolha" itemValue="" />
 							<f:selectItem itemLabel="NE: Nota de Empenho" itemValue="NE" />
 							<f:selectItem itemLabel="NSE: Nota de Subempenho" itemValue="NSE" />
@@ -43,27 +44,34 @@
 
 						<h:outputLabel for="numeroDocumento" value="Número: " />
 						<p:inputText id="numeroDocumento"
-							value="#{auditoriaDocumentoBean.auditoriaDocumento.numeroDocumento}"
+							value="#{auditoriaBean.auditoriaDocumento.numeroDocumento}"
 							maxlength="10" size="10" />
 
 						<h:outputLabel for="dataDocumento" value="Data: *" />
 						<p:calendar id="dataDocumento"
-							value="#{auditoriaDocumentoBean.auditoriaDocumento.dataDocumento}"
+							value="#{auditoriaBean.auditoriaDocumento.dataDocumento}"
 							label="data" maxlength="10" size="10" pattern="dd/MM/yyyy">
 
 						</p:calendar>
 
 						<h:outputLabel for="descricao" value="Descrição: *" />
 						<p:inputTextarea id="descricao"
-							value="#{auditoriaDocumentoBean.auditoriaDocumento.descricao}"
+							value="#{auditoriaBean.auditoriaDocumento.descricao}"
 							label="referencia" rows="3" cols="30" />
 
 						<f:facet name="footer">
 							<p:commandButton id="voltar" icon="ui-icon-circle-arrow-w"
-								value="Voltar" action="#{auditoriaDocumentoBean.voltar}" ajax="false">
+							
+								value="Voltar" action="#{auditoriaBean.voltarAuditoria}" ajax="false">
 							</p:commandButton>
 							<p:commandButton id="selectButton" icon="ui-icon-disk"
-								value="Gravar" action="#{auditoriaDocumentoBean.gravar}">
+								value="Gravar" action="#{auditoriaBean.gravarAuditoriaDocumento}">
+								
+							</p:commandButton>
+							
+							<p:commandButton id="excluir" icon="ui-icon-trash"
+								value="Excluir" action="#{auditoriaBean.excluirAuditoriaDocumento}"
+								 style="float:right">
 							</p:commandButton>
 
 							

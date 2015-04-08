@@ -10,6 +10,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -26,7 +27,7 @@ import controleInterno.service.AuditoriaDocumentoService;
 import controleInterno.service.IrregularidadeService;
 import controleInterno.service.LegislacaoService;
 
-@Scope("session")
+@ViewScoped
 @Component
 @ManagedBean(name = "auditoriaBean")
 public class AuditoriaBean implements Serializable {
@@ -51,14 +52,14 @@ public class AuditoriaBean implements Serializable {
 	private ArquivoService arquivoService;
 	@Autowired
 	private AuditoriaDocumentoService auditoriaDocumentoService;
-	
+	private AuditoriaDocumento auditoriaDocumento;
+
 	public AuditoriaBean() {
 		this.lista = null;
 		this.periodoFinal = null;
 		this.periodoInicial = null;
-		
+
 	}
-	
 
 	public void gravar() {
 
@@ -86,10 +87,17 @@ public class AuditoriaBean implements Serializable {
 					Util.msgErro("Erro de gravação", e.toString());
 				}
 
-				
 			}
 		}
 
+	}
+
+	public AuditoriaDocumento getAuditoriaDocumento() {
+		return auditoriaDocumento;
+	}
+
+	public void setAuditoriaDocumento(AuditoriaDocumento auditoriaDocumento) {
+		this.auditoriaDocumento = auditoriaDocumento;
 	}
 
 	private boolean camposObrigatoriosPreenchidos() {
@@ -99,7 +107,8 @@ public class AuditoriaBean implements Serializable {
 	}
 
 	public Auditoria getAuditoria() {
-		if (auditoria == null) auditoria = new Auditoria();
+		if (auditoria == null)
+			auditoria = new Auditoria();
 		return auditoria;
 	}
 
@@ -108,7 +117,7 @@ public class AuditoriaBean implements Serializable {
 	}
 
 	public List<Auditoria> getLista() {
-		if (lista==null) {
+		if (lista == null) {
 			lista = auditoriaRN.lista();
 		}
 		return lista;
@@ -117,7 +126,7 @@ public class AuditoriaBean implements Serializable {
 	public void setLista(List<Auditoria> lista) {
 		this.lista = lista;
 	}
-	
+
 	public String editar() {
 		if (auditoria.getId() != null) {
 			carregaListaArquivo();
@@ -126,19 +135,35 @@ public class AuditoriaBean implements Serializable {
 
 	}
 
+	public AuditoriaDocumento getAuditoriaDocumentoAEditar() {
+		return auditoriaDocumento;
+	}
+
+	public void setAuditoriaDocumentoAEditar(
+			AuditoriaDocumento auditoriaDocumentoAEditar) {
+		this.auditoriaDocumento = auditoriaDocumentoAEditar;
+	}
+
+	public String editarDocumento() {
+
+		return "/controleInterno/cadastros/auditoriaDocumento.jsf";
+
+	}
+
 	public String excluir() {
-		
+
 		auditoriaRN.exclui(auditoria);
 		lista = auditoriaRN.lista();
 		return "/controleInterno/cadastros/pesquisaAuditoria.jsf";
-		
+
 	}
 
 	public List<Irregularidade> getListaIrregularidade(String tipoDocumento) {
 		if (this.listaIrregularidade == null) {
-			listaIrregularidade = irregularidadesRN.listaPorTipoDocumento(tipoDocumento);
+			listaIrregularidade = irregularidadesRN
+					.listaPorTipoDocumento(tipoDocumento);
 		}
-		
+
 		return listaIrregularidade;
 	}
 
@@ -150,7 +175,7 @@ public class AuditoriaBean implements Serializable {
 		if (this.listaLegislacao == null) {
 			listaLegislacao = legislacaoRN.lista();
 		}
-		
+
 		return listaLegislacao;
 	}
 
@@ -167,44 +192,46 @@ public class AuditoriaBean implements Serializable {
 	}
 
 	private void carregaListaArquivo() {
-		listaArquivo = arquivoService.buscaArquivoPorTabelaIdReferencia("auditoria", auditoria.getId());
-		
+		listaArquivo = arquivoService.buscaArquivoPorTabelaIdReferencia(
+				"auditoria", auditoria.getId());
+
 	}
 
 	public void setListaArquivo(List<Arquivo> listaArquivo) {
 		this.listaArquivo = listaArquivo;
 	}
 
-	
 	public String anexarDocumento() {
 		FacesContext fc = FacesContext.getCurrentInstance();
-		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
+		HttpSession session = (HttpSession) fc.getExternalContext().getSession(
+				true);
 		session.setAttribute("arquivoIdReferencia", auditoria.getId());
 		session.setAttribute("arquivoTabela", "auditoria");
 		return "/controleInterno/cadastros/arquivo.jsf";
-		
+
 	}
-	
+
 	public String incluir() {
 		auditoria = new Auditoria();
 		return "/controleInterno/cadastros/auditoria.jsf";
 	}
-	
+
 	public String voltar() {
-		if (auditoria.getId() != null) auditoria = new Auditoria();
+		if (auditoria.getId() != null)
+			auditoria = new Auditoria();
+		
 		return "/controleInterno/cadastros/pesquisaAuditoria.jsf";
 	}
 
 	public String pesquisar() {
-		
+
 		if (getPeriodoFinal() != null && getPeriodoInicial() != null) {
 			if (getPeriodoFinal().getTime() < getPeriodoInicial().getTime()) {
-				Util.msgErro("Periodo Inválido!",
-						"");
+				Util.msgErro("Periodo Inválido!", "");
 				return null;
 			}
 		}
-		
+
 		Auditoria auditoriaAux = new Auditoria();
 		auditoriaAux.setPeriodoFinal(getPeriodoFinal());
 		auditoriaAux.setPeriodoInicial(getPeriodoInicial());
@@ -228,29 +255,119 @@ public class AuditoriaBean implements Serializable {
 		this.periodoFinal = periodoFinal;
 	}
 
-
 	public List<AuditoriaDocumento> getListaAuditoriaDocumento() {
-		
-		listaAuditoriaDocumento = auditoriaDocumentoService.listaPorAuditoria(auditoria.getId());
+
+		listaAuditoriaDocumento = auditoriaDocumentoService
+				.listaPorAuditoria(auditoria.getId());
 		return listaAuditoriaDocumento;
 	}
-
 
 	public void setListaAuditoriaDocumento(
 			List<AuditoriaDocumento> listaAuditoriaDocumento) {
 		this.listaAuditoriaDocumento = listaAuditoriaDocumento;
 	}
-	
+
 	public String incluirDocumento() {
-			FacesContext fc = FacesContext.getCurrentInstance();
-			HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-			session.setAttribute("auditoria", auditoria);
-			return "/controleInterno/cadastros/auditoriaDocumento.jsf";
-			
+		auditoriaDocumento = new AuditoriaDocumento();
+		return "/controleInterno/cadastros/auditoriaDocumento.jsf";
 
 	}
-	 
+
+	public void gravarAuditoriaDocumento() {
+
+		if (camposObrigatoriosPreenchidosAuditoriaDocumento()) {
+			if (auditoriaDocumento.getId() != null
+					&& auditoriaDocumento.getId() != 0) {
+				try {
+
+					auditoriaDocumentoService.altera(auditoriaDocumento);
+
+					Util.msgSucesso("Dados alterados com sucesso!",
+							"Cadastro atualizado!");
+
+				} catch (Exception e) {
+
+					Util.msgErro("Erro de gravação", e.toString());
+				}
+			} else {
+				try {
+					auditoriaDocumento.setAuditoria(auditoria);
+					auditoriaDocumentoService.adiciona(auditoriaDocumento);
+
+					Util.msgSucesso("Dados gravados com sucesso!",
+							"Cadastro atualizado!");
+
+				} catch (Exception e) {
+
+					Util.msgErro("Erro de gravação", e.toString());
+				}
+
+			}
+		}
+
+	}
+
+	private boolean camposObrigatoriosPreenchidosAuditoriaDocumento() {
+		boolean retorno = true;
+
+		if (auditoriaDocumento.getDataDocumento() == null) {
+			Util.msgErro("Data não informada:",
+					MSG_ERRO_NAO_PREENCHIMENTO_CAMPOS);
+			retorno = false;
+		}
+
+		if (auditoriaDocumento.getDescricao() == null
+				|| auditoriaDocumento.getDescricao().trim().isEmpty()) {
+			Util.msgErro("Descrição não informada:",
+					MSG_ERRO_NAO_PREENCHIMENTO_CAMPOS);
+			retorno = false;
+		}
+
+		if (auditoriaDocumento.getTipoDocumento() == null) {
+			Util.msgErro("Tipo de Documento não informado:",
+					MSG_ERRO_NAO_PREENCHIMENTO_CAMPOS);
+			retorno = false;
+		}
+
+		return retorno;
+	}
+
+	public String voltarAuditoria() {
+
+		return "/controleInterno/cadastros/auditoria.jsf";
+
+	}
 	
+	public String excluirAuditoria() { 
+		
+		try {
+			auditoriaRN.exclui(auditoria);
+			auditoria = null;
+			Util.msgSucesso("Sucesso", "Exclusão efetuada.");
+		} catch (ConstraintViolationException e1){
+			Util.msgErro("Erro de exclusão", "registro associado a outras informações.");
+			
+		} catch (Exception e){
+			Util.msgErro("Erro de exclusão", e.getMessage());
+		}
+		return "/controleInterno/cadastros/auditoria.jsf";
+		
+	}
+	
+	public String excluirAuditoriaDocumento() { 
+		
+		try {
+			auditoriaDocumentoService.exclui(auditoriaDocumento);
+			auditoriaDocumento = new AuditoriaDocumento();
+			Util.msgSucesso("Sucesso", "Exclusão efetuada.");
+		} catch (ConstraintViolationException e1){
+			Util.msgErro("Erro de exclusão", "registro associado a outras informações.");
+			
+		} catch (Exception e){
+			Util.msgErro("Erro de exclusão", e.getMessage());
+		}
+		return "/controleInterno/cadastros/auditoriaDocumento.jsf";
+		
+	}
+
 }
-
-

@@ -81,7 +81,7 @@
 								value="Gravar" action="#{legislacaoBean.gravar}">
 							</p:commandButton>
 
-							<p:commandButton id="excluiButton" icon="ui-icon-trash"
+							<p:commandButton id="excluiButton" icon="ui-icon-trash" style="float:right; "
 								value="Excluir" action="#{legislacaoBean.excluir}"
 								update="formLegislacao" rendered="#{legislacaoBean.legislacao.id ne null}"/>
 						</f:facet>

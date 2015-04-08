@@ -63,6 +63,10 @@
 							<p:commandButton id="voltar" icon="ui-icon-circle-arrow-w"
 								value="Voltar" action="#{auditoriaBean.voltar}">
 							</p:commandButton>
+							<p:commandButton id="excluir" icon="ui-icon-trash"
+								value="Excluir" action="#{auditoriaBean.excluirAuditoria}"
+								update="panelAnexar" style="float:right">
+							</p:commandButton>
 
 						</f:facet>
 
@@ -91,6 +95,16 @@
 
 							<p:column id="descricao" headerText="Descrição">
 								<h:outputText value="#{ad.descricao}" />
+							</p:column>
+							
+							<p:column style="width:4%">
+								<p:commandLink id="selectButton"
+									icon="/resources/imagens/editar16.png"
+									action="#{auditoriaBean.editarDocumento}" ajax="true">
+									<p:graphicImage value="/resources/imagens/editar16.png" />
+									<f:setPropertyActionListener value="#{ad}"
+										target="#{auditoriaBean.auditoriaDocumentoAEditar}" />
+								</p:commandLink>
 							</p:column>
 
 							<f:facet name="footer">

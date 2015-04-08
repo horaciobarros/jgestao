@@ -22,6 +22,11 @@ public class Util {
 				new FacesMessage(FacesMessage.SEVERITY_INFO, texto1, texto2));
 
 	}
+	
+	public static void msgSucesso(String texto1) {
+		FacesContext.getCurrentInstance().addMessage("Sucesso.", new FacesMessage(texto1));
+
+	}
 
 	public static boolean cpfValido(String cpf) {
 		return false;

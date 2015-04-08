@@ -210,7 +210,7 @@ public class JpaDao<T> implements Dao<T> {
 	public void delete(T obj) {
 		Transaction tx = getSessionFactory().getCurrentSession().beginTransaction();
 		try {
-			this.sessionFactory.getCurrentSession().update(obj);
+			this.sessionFactory.getCurrentSession().delete(obj);
 			tx.commit();
 		} catch(Exception e) {
 			tx.rollback();

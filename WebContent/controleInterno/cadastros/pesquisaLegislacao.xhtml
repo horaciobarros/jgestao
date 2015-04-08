@@ -10,7 +10,7 @@
 
 	<ui:composition template="/templates/principal.xhtml">
 		<ui:define name="corpo">
-			<h:form id="formLegislacao">
+			<h:form id="form">
 				<center>
 
 					<p:messages id="messages" showDetail="true" closable="true" />
@@ -53,65 +53,67 @@
 					</p:panelGrid>
 					<p:commandButton id="pesquisar" icon="ui-icon-circle-zoomout"
 						value="Pesquisar" action="#{legislacaoBean.pesquisar}"
-						update="formLegislacao,messages">
+						update="form,messages">
 					</p:commandButton>
 					<p:commandButton id="incluir" icon="ui-icon-circle-plus"
 						value="Incluir" action="#{legislacaoBean.incluir}">
 					</p:commandButton>
 
 
-					<p:dataTable id="tabela" var="l" value="#{legislacaoBean.lista}"
-						rendered="#{legislacaoBean.lista ne null}"
-						style="width:80%; height:100%; margin-top:50px;"
-						emptyMessage="Nenhum registro encontrado">
-						<f:facet name="header">
-							<p:outputLabel value="Legislações Cadastradas" />
-						</f:facet>
+					<h:panelGroup id="panelTabela">
+						<p:dataTable id="tabela" var="l" value="#{legislacaoBean.lista}"
+							rendered="#{legislacaoBean.lista ne null}"
+							style="width:80%; height:100%; margin-top:50px;"
+							emptyMessage="Nenhum registro encontrado">
+							<f:facet name="header">
+								<p:outputLabel value="Legislações Cadastradas" />
+							</f:facet>
 
-						<p:column headerText="Código">
-							<h:outputText value="#{l.id}" />
-						</p:column>
-
-
-						<p:column headerText="Tipo">
-							<h:outputText value="#{l.tipoLegislacao.codigo}" />
-						</p:column>
-
-						<p:column headerText="Número">
-							<h:outputText value="#{l.numero}" />
-						</p:column>
-
-						<p:column headerText="Data">
-							<h:outputText value="#{l.data}">
-								<f:convertDateTime pattern="dd/MM/yyyy" />
-							</h:outputText>
-						</p:column>
-						<p:column headerText="Referência">
-							<h:outputText value="#{l.referencia}" />
-						</p:column>
+							<p:column headerText="Código">
+								<h:outputText value="#{l.id}" />
+							</p:column>
 
 
-						<p:column style="width:4%">
-							<p:commandLink id="selectButton"
-								icon="/resources/imagens/editar16.png"
-								action="#{legislacaoBean.editar}" ajax="true">
-								<p:graphicImage value="/resources/imagens/editar16.png" />
-								<f:setPropertyActionListener value="#{l}"
-									target="#{legislacaoBean.legislacao}" />
-							</p:commandLink>
-						</p:column>
+							<p:column headerText="Tipo">
+								<h:outputText value="#{l.tipoLegislacao.codigo}" />
+							</p:column>
 
-						<f:facet name="footer">
-							<div align="right">
-								<p:panelGrid columns="2" style="text-align: right; width:20%;">
-									<p:outputLabel value="Registros listados:" />
-									<p:outputLabel value="#{legislacaoBean.lista.size()}" />
-								</p:panelGrid>
-							</div>
+							<p:column headerText="Número">
+								<h:outputText value="#{l.numero}" />
+							</p:column>
 
-						</f:facet>
+							<p:column headerText="Data">
+								<h:outputText value="#{l.data}">
+									<f:convertDateTime pattern="dd/MM/yyyy" />
+								</h:outputText>
+							</p:column>
+							<p:column headerText="Referência">
+								<h:outputText value="#{l.referencia}" />
+							</p:column>
 
-					</p:dataTable>
+
+							<p:column style="width:4%">
+								<p:commandLink id="selectButton"
+									icon="/resources/imagens/editar16.png"
+									action="#{legislacaoBean.editar}" ajax="true">
+									<p:graphicImage value="/resources/imagens/editar16.png" />
+									<f:setPropertyActionListener value="#{l}"
+										target="#{legislacaoBean.legislacao}" />
+								</p:commandLink>
+							</p:column>
+
+							<f:facet name="footer">
+								<div align="right">
+									<p:panelGrid columns="2" style="text-align: right; width:20%;">
+										<p:outputLabel value="Registros listados:" />
+										<p:outputLabel value="#{legislacaoBean.lista.size()}" />
+									</p:panelGrid>
+								</div>
+
+							</f:facet>
+
+						</p:dataTable>
+					</h:panelGroup>
 				</center>
 
 			</h:form>
