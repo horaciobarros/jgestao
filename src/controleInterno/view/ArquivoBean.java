@@ -203,7 +203,7 @@ public class ArquivoBean implements Serializable {
 	public String getTabela() {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(
-				false);
+				true);
 		tabela = (String) session.getAttribute("arquivoTabela");
 		return tabela;
 	}
